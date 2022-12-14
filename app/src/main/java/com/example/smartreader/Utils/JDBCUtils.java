@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class JDBCUtils {
+    //数据库连接
     static {
         try{
             Class.forName("com.mysql.jdbc.Driver");

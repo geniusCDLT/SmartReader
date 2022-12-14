@@ -7,5 +7,8 @@ public interface EnterService {
     //登录
     User login(String username, String pwd);
     //注册
-    Boolean register(String username, String pwd);
+    Boolean register(User user);
+
+    //寻找用户
+    boolean FindUser(String username);
 }

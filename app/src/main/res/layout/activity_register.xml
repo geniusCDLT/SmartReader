@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Activity.RegisterActivity">
 
 
     <RelativeLayout
@@ -90,6 +92,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_weight="3"
                 android:background="#00FFFFFF"
+                android:inputType="textPassword"
                 android:hint="请输入密码"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -139,6 +142,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_weight="3"
                 android:background="#00FFFFFF"
+                android:inputType="textPassword"
                 android:hint="请确认密码"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -213,14 +217,6 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-
-
-
-
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

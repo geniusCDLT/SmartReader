@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EnterServiceImpl implements EnterService {
+    //连接数据库
     private Connection con=null ;
     public EnterServiceImpl(){
         con = JDBCUtils.getConn();
@@ -38,16 +39,45 @@ public class EnterServiceImpl implements EnterService {
                 user.setUserPassword(pwd);
                 return user;
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
     }
-
+    //用户注册
     @Override
-    public Boolean register(String username, String pwd) {
+    public Boolean register(User user) {
+        String sql = "insert into user(username,UserPassword,email) values (?,?,?)";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setString(1,user.getUsername());
+            pst.setString(2,user.getUserPassword());
+            pst.setString(3,user.getEmail());
+            int value = pst.executeUpdate();
+            if(value>0){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 
-        return null;
+    //寻找用户
+    @Override
+    public boolean FindUser(String username){
+        String sql = "select * from user where username = ?";
+        try {
+            System.out.println(username);
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setString(1,username);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }
