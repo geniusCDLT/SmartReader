@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class MainServiceImpl implements MainService {
     //连接数据库
     private Connection con=null ;
@@ -152,7 +153,18 @@ public class MainServiceImpl implements MainService {
      */
     @Override
     public Integer GetXBookNum(String type) {
-        return null;
+        String sql="select count(noveltype=?) as a from novel";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setString(1,type);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
 
 
