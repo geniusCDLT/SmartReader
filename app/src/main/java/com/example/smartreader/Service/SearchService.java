@@ -11,5 +11,5 @@ public interface SearchService {
     //获取推荐搜索书籍
     ArrayList<Book> GetSuitableBooks(User user);
     //获取搜索书籍（最优and匹配）
-    ArrayList<Book> GetSearchBooks(String scontent, String swhat);
+    ArrayList<Book> GetSearchBooks(String scontent, int swhat);
 }

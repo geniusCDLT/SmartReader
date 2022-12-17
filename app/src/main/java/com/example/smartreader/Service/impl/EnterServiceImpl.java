@@ -47,6 +47,7 @@ public class EnterServiceImpl implements EnterService {
     //用户注册
     @Override
     public Boolean register(User user) {
+        boolean isReg = false;
         String sql = "insert into user(username,UserPassword,email) values (?,?,?)";
         try {
             PreparedStatement pst=con.prepareStatement(sql);
@@ -55,12 +56,16 @@ public class EnterServiceImpl implements EnterService {
             pst.setString(3,user.getEmail());
             int value = pst.executeUpdate();
             if(value>0){
-                return true;
+                isReg = true;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        if(isReg){
+            //为新用户创建初始收藏夹：“尚未分类”
+            CreateInitialFolder(user.getUsername(), user.getUserPassword());
+        }
+        return isReg;
     }
 
     //寻找用户
@@ -73,6 +78,28 @@ public class EnterServiceImpl implements EnterService {
             pst.setString(1,username);
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 为新用户创建初始收藏夹：“尚未分类”
+     * @param username 用户用户名
+     * @param pwd 用户密码
+     */
+    private Boolean CreateInitialFolder(String username, String pwd) {
+        User user = login(username, pwd);
+        String sql = "insert into folder(UserId, folderName) values (?,?)";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setString(1,user.getUserid().toString());
+            pst.setString(2,"尚未分类");
+            int value = pst.executeUpdate();
+            if(value>0){
                 return true;
             }
         } catch (SQLException throwables) {

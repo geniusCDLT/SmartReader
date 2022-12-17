@@ -1,5 +1,6 @@
 package com.example.smartreader.entity;
 
+//用户类
 public class User {
     private Integer userid;
     private String username;
