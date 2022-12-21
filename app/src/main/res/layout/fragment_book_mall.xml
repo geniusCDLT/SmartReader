@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -7,41 +7,87 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
+    <ScrollView
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+    >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+                    android:id="@+id/bm_btn_zongbang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking1"
+                    android:color="@color/black"/>
+            <Button
+                    android:id="@+id/bm_btn_gudai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking2"
+                    android:color="@color/black"/>
+            <Button
+                    android:id="@+id/bm_btn_dushi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking3"
+                    android:color="@color/black"/>
+            <Button
+                    android:id="@+id/bm_btn_huanxiang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking4"
+                    android:color="@color/black"/>
+            <Button
+                    android:id="@+id/bm_btn_chaunyue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking5"
+                    android:color="@color/black"/>
+            <Button
+                    android:id="@+id/bm_btn_qihuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking6"
+                    android:color="@color/black"/>
+            <Button
+                    android:id="@+id/bm_btn_weixuanyou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginButtom="15dp"
+                    android:background="@drawable/main_mall_ranking7"
+                    android:color="@color/black"/>
+        </LinearLayout>
+    </ScrollView>
 
-        android:layout_width="180dp"
-
-        android:layout_height="180dp"
-
-        android:background="#ffff00"
-
-        android:text="Button1"/>
-
-
-
-    <Button
-
-        android:layout_width="120dp"
-
-        android:layout_height="120dp"
-
-        android:background="#123456"
-
-        android:text="Button2"/>
-
-    <Button
-
-        android:layout_width="60dp"
-
-        android:layout_height="60dp"
-
-        android:background="#ff0000"
-
-        android:text="看看拉取成功没"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+</LinearLayout>

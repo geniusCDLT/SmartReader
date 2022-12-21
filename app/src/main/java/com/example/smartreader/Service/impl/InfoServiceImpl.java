@@ -58,6 +58,7 @@ public class InfoServiceImpl implements InfoService {
             pst.setString(3,folderName);
             int value = pst.executeUpdate();
             if(value>0){
+                book.OnePlusCltNum();
                 return true;
             }
         } catch (SQLException throwables) {
@@ -81,6 +82,7 @@ public class InfoServiceImpl implements InfoService {
             pst.setInt(2,book.getId());
             int value = pst.executeUpdate();
             if(value>0){
+                book.OneMinusCltNum();
                 return true;
             }
         } catch (SQLException throwables) {
