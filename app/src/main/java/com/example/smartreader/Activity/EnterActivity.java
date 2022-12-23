@@ -72,7 +72,7 @@ public class EnterActivity extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
                 Intent intent=null;
-                intent=new Intent(EnterActivity.this, ReadActivity.class);
+                intent=new Intent(EnterActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }

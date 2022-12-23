@@ -12,9 +12,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--string_array-->
+    <string-array name="fragment_title">
+        <item>@string/fragment.title.bookshelf</item>
+        <item>@string/fragment.title.bookmall</item>
+    </string-array>
+
     <!--fragment_title:主页的名字-->
     <string name="fragment.title.bookshelf">书架</string>
-    <string name="fragment.title.community">书城</string>
+    <string name="fragment.title.bookmall">书城</string>
 
     <!--read-->
     <string name="read.community">社区</string>
