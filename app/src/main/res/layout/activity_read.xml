@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/read_dl_slide"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ReadActivity">
+    tools:context=".Activity.ReadActivity"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -73,6 +74,23 @@
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
+        <ScrollView
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            >
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/chapter_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </ScrollView>
+
 
         <!--底部页面-->
         <LinearLayout
@@ -183,4 +201,4 @@
                 android:scrollbars="vertical" />
         </RelativeLayout>
     </LinearLayout>
-</androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>

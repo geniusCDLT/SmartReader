@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.smartreader.R;
+import com.example.smartreader.Utils.BlobAndBase64Utils;
 import com.example.smartreader.entity.Book;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public class BookListAdapter extends BaseAdapter {
     Context context;
     List<Book> Bs;
 
-    public BookListAdapter(Context context, List<Book> Bs) {
+    public BookListAdapter(Context context) {
         this.context=context;
-        this.Bs=Bs;
+
     }
 
     public void setBs(List<Book> bs) {
@@ -77,8 +78,9 @@ public class BookListAdapter extends BaseAdapter {
         holder.author.setText(b.getAuthor());
         holder.type.setText(b.getNovelType());
         holder.desc.setText(b.getDesc());
-        //还没设置书籍封面！！！
-
+        BlobAndBase64Utils blob=new BlobAndBase64Utils();
+        String Base64=blob.getBase64InBlob(b.getCover());
+        holder.cover.setImageBitmap(blob.StringToBitmap(Base64));
         return convertView;
     }
 

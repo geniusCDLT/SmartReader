@@ -5,22 +5,33 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.EnterServiceImpl;
+import com.example.smartreader.Service.impl.MainServiceImpl;
+import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.User;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnterActivity extends AppCompatActivity {
     private EditText EtUsername;
     private EditText EtPwd;
     private Button BLogin;
     private TextView register;
+    ListView listView;
+    private List<Book> books;
 
     public  User user=new User();//用户信息
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +42,7 @@ public class EnterActivity extends AppCompatActivity {
         BLogin=findViewById(R.id.login_button);
         BLogin.setOnClickListener(this::submitLogin);
         register=findViewById(R.id.register_button);
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +62,11 @@ public class EnterActivity extends AppCompatActivity {
                 if(!EtUsername.getText().toString().equals("") && !EtPwd.getText().toString().equals("")){
                     EnterServiceImpl enter=new EnterServiceImpl();
                     user=enter.login(EtUsername.getText().toString(),EtPwd.getText().toString());
+
+                    MainServiceImpl mainService=new MainServiceImpl();
+                    ArrayList<Integer> folder;
+                    books=mainService.GetFolderBooks(user,"尚未分类");
+
                 }
                 int msg=0;
                 if(user!=null){
@@ -73,6 +90,11 @@ public class EnterActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
                 Intent intent=null;
                 intent=new Intent(EnterActivity.this, MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                bundle.putSerializable("books", (Serializable) books);
+
+                intent.putExtras(bundle);
                 startActivity(intent);
 
             }

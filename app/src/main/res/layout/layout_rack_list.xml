@@ -32,6 +32,7 @@
                 android:textColor="@color/cornflowerblue"
                 android:textSize="16dp"/>
     </LinearLayout>
+
     <com.example.smartreader.Activity.ui.HorizontalListView
             android:id="@+id/main_lv_rack"
             android:layout_width="wrap_content"

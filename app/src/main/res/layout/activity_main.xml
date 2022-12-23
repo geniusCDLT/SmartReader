@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.smartreader.Activity.MainActivity">
 
+
    <RadioGroup
        android:id="@+id/rg_tab_bar"
        android:layout_width="match_parent"
@@ -18,6 +19,8 @@
           android:drawableTop="@drawable/tab_menu_bookshelf"
           android:text="书架"
           android:textSize="14sp"/>
+
+
 
       <RadioButton
           android:id="@+id/rb_mall"
@@ -54,5 +57,11 @@
           android:layout_height="wrap_content"
           android:text="Button" />
    </androidx.viewpager.widget.ViewPager>
+
+<!--   <fragment-->
+<!--       android:name="com.example.smartreader.Activity.fragment.BookshelfFragment"-->
+<!--       android:layout_width="match_parent"-->
+<!--       android:layout_height="wrap_content"-->
+<!--       tools:layout="@layout/fragment_bookshelf" />-->
 
 </RelativeLayout>

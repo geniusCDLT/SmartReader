@@ -19,24 +19,30 @@ public class CatalogServiceImpl implements CatalogService {
     /**
      *
      * @param title 章节名，即第几章***
-     * @param book 小说
+     *
      * @return
      */
     @Override
-    public Chapter GetChapter(String title,Book book) {
+    public Chapter GetChapter(String title,Integer id) {
         Chapter chapter=new Chapter();
         String sql="select * from chapter where title = ? and novel_id = ?";
+        if (con ==null){
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            System.out.println(""+con);
+        }
         try {
             PreparedStatement pst=con.prepareStatement(sql);
             pst.setString(1,title);
-            pst.setInt(2,book.getId());
+            pst.setInt(2,id);
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 chapter.setId(rs.getInt(1));
                 chapter.setTitle(rs.getString(2));
-                chapter.setcTime(rs.getTime(3));
-                chapter.setmTime(rs.getTime(4));
-                chapter.setContent(rs.getString(5));
+//                chapter.setcTime(rs.getTime(3));
+//                chapter.setmTime(rs.getTime(4));
+                chapter.setContent(rs.getString(7));
+                System.out.println(rs.getString(7));
+                System.out.println(chapter.getContent());
                 return chapter;
             }
         } catch (SQLException throwables) {

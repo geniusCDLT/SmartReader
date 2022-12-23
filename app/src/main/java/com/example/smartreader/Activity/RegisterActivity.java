@@ -77,6 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
                     if(!enter.register(user)){
                         msg=7;//注册失败
                     }
+
+                }
+                if(msg==0){
+                   boolean x= enter.CreateInitialFolder(user.getUsername(),user.getUserPassword());
+                   if(x){
+                       System.out.println("创建成功");
+                   }
                 }
                 hand.sendEmptyMessage(msg);
             }
@@ -87,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
+
                 Intent intent = new Intent();
                 //将想要传递的数据用putExtra封装在intent中
                 intent.putExtra("a", "註冊");

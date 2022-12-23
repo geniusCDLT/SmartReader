@@ -91,12 +91,13 @@ public class EnterServiceImpl implements EnterService {
      * @param username 用户用户名
      * @param pwd 用户密码
      */
-    private Boolean CreateInitialFolder(String username, String pwd) {
+    @Override
+    public Boolean CreateInitialFolder(String username, String pwd) {
         User user = login(username, pwd);
         String sql = "insert into folder(UserId, folderName) values (?,?)";
         try {
             PreparedStatement pst=con.prepareStatement(sql);
-            pst.setString(1,user.getUserid().toString());
+            pst.setInt(1,user.getUserid());
             pst.setString(2,"尚未分类");
             int value = pst.executeUpdate();
             if(value>0){

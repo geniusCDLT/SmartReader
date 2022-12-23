@@ -1,7 +1,9 @@
 package com.example.smartreader.entity;
 
+import java.io.Serializable;
+
 //用户类
-public class User {
+public class User implements Serializable {
     private Integer userid;
     private String username;
     private String userPassword;

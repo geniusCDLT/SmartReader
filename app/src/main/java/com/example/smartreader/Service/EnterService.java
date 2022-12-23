@@ -11,4 +11,6 @@ public interface EnterService {
 
     //寻找用户
     boolean FindUser(String username);
+
+    Boolean CreateInitialFolder(String username, String pwd);
 }

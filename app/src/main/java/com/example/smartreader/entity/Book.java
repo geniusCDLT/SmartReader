@@ -1,8 +1,9 @@
 package com.example.smartreader.entity;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
-public class Book {
+public class Book implements Serializable {
     private Integer id;
     private String title;//标题
     private String desc;//简介

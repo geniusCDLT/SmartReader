@@ -5,7 +5,11 @@ import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.User;
 import com.example.smartreader.Service.MainService;
 
-import java.sql.*;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -59,6 +63,7 @@ public class MainServiceImpl implements MainService {
             pst.setString(2,folderName);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
+                System.out.println("hhhh1");
                 int id = rs.getInt(1);
                 String title = rs.getString(2);
                 String desc = rs.getString(3);
@@ -66,7 +71,6 @@ public class MainServiceImpl implements MainService {
                 String novelType = rs.getString(5);
                 Blob cover = rs.getBlob(6);
                 int cltNum = rs.getInt(7);
-
                 Book book=new Book(id, title, desc, author, novelType, cover, cltNum);
                 FolderBooks.add(book);
             }
@@ -144,7 +148,7 @@ public class MainServiceImpl implements MainService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**

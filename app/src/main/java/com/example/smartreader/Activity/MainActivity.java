@@ -2,29 +2,38 @@ package com.example.smartreader.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.smartreader.Activity.adapter.BookListAdapter;
+import com.example.smartreader.Activity.adapter.MyAdapter;
 import com.example.smartreader.Activity.adapter.MyFragmentPagerAdapter;
 import com.example.smartreader.Activity.fragment.BookMallFragment;
 import com.example.smartreader.Activity.fragment.BookshelfFragment;
 import com.example.smartreader.R;
+import com.example.smartreader.Service.impl.CatalogServiceImpl;
+import com.example.smartreader.Service.impl.MainServiceImpl;
+import com.example.smartreader.entity.Book;
+import com.example.smartreader.entity.User;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
-        ViewPager.OnPageChangeListener{
+        ViewPager.OnPageChangeListener {
     private TextView register;
 
     private RadioGroup rg_tab_bar;
@@ -40,14 +49,40 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public static final int PAGE_TWO = 1;
     public static final int PAGE_THREE = 2;
 
+    /***************Object*********************/
+    private final ArrayList<Fragment> mFragmentList = new ArrayList<>();
+    private ImageView imageView;
+    private GridView mGridView;
+    private List<Book> books;
+
+    private BookListAdapter adapter=new BookListAdapter(this);
+    private ListView listView;
+
+    protected List<Fragment> createTabFragments() {
+        initFragment();
+        return mFragmentList;
+    }
+
+    private void initFragment() {
+        Fragment BookshelfFragment = new BookshelfFragment();
+        Fragment BookMallFragment = new BookMallFragment();
+        mFragmentList.add(BookshelfFragment);
+        mFragmentList.add(BookMallFragment);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initFragment();
         setContentView(R.layout.activity_main);
+        //new Thread(new MainActivity. MyRunnableDisplay()).start();
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         initViews();
         rb_bookshelf.setChecked(true);
+        //listView=getFragmentManager().findFragmentById(R.id.rb_bookshelf).getView().findViewById(R.id.lv_list);
+       // new Thread(new MainActivity.MyRunnableDisplay()).start();
+
+
     }
 
     private void initViews() {
@@ -62,11 +97,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         vpager.addOnPageChangeListener(this);
     }
 
-    @Override
+
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.rb_bookshelf:
                 vpager.setCurrentItem(PAGE_ONE);
+
+
                 break;
             case R.id.rb_mall:
                 vpager.setCurrentItem(PAGE_TWO);
@@ -77,17 +114,19 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     }
 
-    @Override
+
+
+
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
 
-    @Override
+
     public void onPageSelected(int position) {
 
     }
 
-    @Override
+
     public void onPageScrollStateChanged(int state) {
         if (state == 2) {
             switch (vpager.getCurrentItem()) {
@@ -108,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
 
 
 }
