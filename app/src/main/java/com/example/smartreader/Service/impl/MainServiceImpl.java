@@ -76,7 +76,7 @@ public class MainServiceImpl implements MainService {
     }
 
     /**
-     * 创建收藏夹
+     * 创建收藏夹（不能重名）
      * @param user 用户
      * @param folderName 创建的收藏夹名称
      * @return 是否创建成功
@@ -99,7 +99,7 @@ public class MainServiceImpl implements MainService {
     }
 
     /**
-     * 修改收藏夹名称
+     * 修改收藏夹名称（不能重名）
      * @param user 用户
      * @param OldName 旧收藏夹名称
      * @param NewName 新收藏夹名称
@@ -147,6 +147,29 @@ public class MainServiceImpl implements MainService {
     }
 
     /**
+     * 获取用户某收藏夹中小说总数
+     * @param user 用户
+     * @param folderName 收藏夹名称
+     * @return
+     */
+    @Override
+    public Integer GetXFolderBookNum(User user, String folderName) {
+        String sql="select count(folderName) as b from folder where UserId=? and folderName=?";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setString(1,user.getUserid().toString());
+            pst.setString(2,folderName);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
      * 获取书库中某类小说的数量
      * @param type
      * @return
@@ -166,6 +189,5 @@ public class MainServiceImpl implements MainService {
         }
         return 0;
     }
-
 
 }

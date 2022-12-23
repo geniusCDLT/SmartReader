@@ -16,6 +16,8 @@ public interface MainService {
     Boolean RenameFolder(User user, String OldName, String NewName);
     //删除收藏夹
     Boolean DeleteFolder(User user, String folderName);
+    //获取用户某收藏夹中小说总数
+    Integer GetXFolderBookNum(User user, String folderName);
     //获取书库中某类小说的数量
     Integer GetXBookNum(String type);
 }

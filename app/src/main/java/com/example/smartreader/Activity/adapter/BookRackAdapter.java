@@ -1,26 +1,28 @@
 package com.example.smartreader.Activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.smartreader.R;
 import com.example.smartreader.entity.Book;
 
+import java.sql.Blob;
 import java.util.List;
 
-
 /**
- * 小说排行榜适配器
+ * 书架小说显示适配器（就晋江刚打开看到的）
  */
-public class BookListAdapter extends BaseAdapter {
+public class BookRackAdapter extends BaseAdapter {
     Context context;
     List<Book> Bs;
 
-    public BookListAdapter(Context context, List<Book> Bs) {
+    public BookRackAdapter(Context context, List<Book> Bs) {
         this.context=context;
         this.Bs=Bs;
     }
@@ -61,40 +63,40 @@ public class BookListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BookListAdapter.ViewHolder holder=null;
+        ViewHolder holder=null;
         if(convertView==null){
             //将布局转换成view对象
-            convertView= LayoutInflater.from(context).inflate(R.layout.item_book,null);
-            holder=new BookListAdapter.ViewHolder(convertView);
+            convertView= LayoutInflater.from(context).inflate(R.layout.item_rack,null);
+            holder=new ViewHolder(convertView);
             convertView.setTag(holder);
         }else{
-            holder=(BookListAdapter.ViewHolder) convertView.getTag();
+            holder=(ViewHolder) convertView.getTag();
         }
         //加载控件显示的内容
         //获取集合显示的数据
         Book b=Bs.get(position);
         holder.title.setText(b.getTitle());
-        holder.author.setText(b.getAuthor());
-        holder.type.setText(b.getNovelType());
-        holder.desc.setText(b.getDesc());
         //还没设置书籍封面！！！
 
+//        holder.iBlog.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, BlogActivity.class);
+//                blog b= (blog) getItem(position);
+//                intent.putExtra("iBlog", b);
+//                //startActivity(intent);
+//            }
+//        });
         return convertView;
     }
 
     class ViewHolder{
         TextView title;
-        TextView author;
-        TextView type;
-        TextView desc;
         ImageView cover;
 
         public ViewHolder(View view){
-            title=view.findViewById(R.id.rl_tv_book_title);
-            author=view.findViewById(R.id.rl_tv_book_author);
-            type=view.findViewById(R.id.rl_tv_book_type);
-            desc=view.findViewById(R.id.rl_tv_book_desc);
-            cover=view.findViewById(R.id.rl_iv_book_cover);
+            title=view.findViewById(R.id.main_tv_rack_book_name);
+            cover=view.findViewById(R.id.main_iv_rack_book_cover);
         }
     }
 }

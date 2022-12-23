@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -75,7 +72,7 @@ public class EnterActivity extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
                 Intent intent=null;
-                intent=new Intent(EnterActivity.this, MainActivity.class);
+                intent=new Intent(EnterActivity.this, ReadActivity.class);
                 startActivity(intent);
 
             }

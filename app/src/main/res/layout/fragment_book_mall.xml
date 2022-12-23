@@ -24,7 +24,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking1"
                     android:color="@color/black"/>
             <Button
@@ -34,7 +34,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking2"
                     android:color="@color/black"/>
             <Button
@@ -44,7 +44,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking3"
                     android:color="@color/black"/>
             <Button
@@ -54,7 +54,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking4"
                     android:color="@color/black"/>
             <Button
@@ -64,7 +64,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking5"
                     android:color="@color/black"/>
             <Button
@@ -74,7 +74,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking6"
                     android:color="@color/black"/>
             <Button
@@ -84,7 +84,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginButtom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/main_mall_ranking7"
                     android:color="@color/black"/>
         </LinearLayout>
