@@ -6,5 +6,5 @@ import java.util.ArrayList;
 
 public interface RankingListService {
     //获取分类排行榜
-    ArrayList<Book> GetCategoryRank(String category);
+    ArrayList<Book> GetCategoryRank(String category, int k);
 }

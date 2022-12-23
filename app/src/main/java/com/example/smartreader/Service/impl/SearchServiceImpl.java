@@ -14,20 +14,6 @@ public class SearchServiceImpl implements SearchService {
     public SearchServiceImpl(){
         con = JDBCUtils.getConn();
     }
-    @Override
-    public ArrayList<Book> GetHotBooks() {
-        return null;
-    }
-
-    /**
-     * 获取推荐搜索书籍
-     * @param user 用户
-     * @return 为该用户推荐的书籍列表
-     */
-    @Override
-    public ArrayList<Book> GetSuitableBooks(User user) {
-        return null;
-    }
 
     /**
      * 获取搜索书籍（最优and匹配）
@@ -54,7 +40,7 @@ public class SearchServiceImpl implements SearchService {
         try {
             PreparedStatement pst=con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 int id = rs.getInt(1);
                 String title = rs.getString(2);
                 String desc = rs.getString(3);

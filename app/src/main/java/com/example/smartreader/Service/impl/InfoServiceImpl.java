@@ -23,7 +23,7 @@ public class InfoServiceImpl implements InfoService {
      * @return
      */
     @Override
-    public Boolean IfColleted(User user, Book book) {
+    public Boolean IfCollected(User user, Book book) {
 
         String sql="select * from collect where userid = ? and novelId = ?";
         try {
@@ -49,7 +49,8 @@ public class InfoServiceImpl implements InfoService {
      */
     @Override
     public Boolean CollectBook(User user, Book book, String folderName) {
-
+        Boolean isSuccess1=false;
+        Boolean isSuccess2=false;
         String sql = "insert into collect(userid,novelId,folderName) values (?,?,?)";
         try {
             PreparedStatement pst=con.prepareStatement(sql);
@@ -64,7 +65,20 @@ public class InfoServiceImpl implements InfoService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        //小说表中的收藏数+1
+        String sql2 = "update novel set cltNum=cltNum+1 where id=?";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql2);
+            pst.setInt(1,book.getId());
+            int value = pst.executeUpdate();
+            if(value>0){
+                book.OneMinusCltNum();
+                isSuccess2=true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return (isSuccess1&&isSuccess2);
     }
 
     /**
@@ -75,6 +89,8 @@ public class InfoServiceImpl implements InfoService {
      */
     @Override
     public Boolean DeleteCollection(User user, Book book) {
+        Boolean isSuccess1=false;
+        Boolean isSuccess2=false;
         String sql = "delete from collect where userid = ? and novelId = ?";
         try {
             PreparedStatement pst=con.prepareStatement(sql);
@@ -83,11 +99,24 @@ public class InfoServiceImpl implements InfoService {
             int value = pst.executeUpdate();
             if(value>0){
                 book.OneMinusCltNum();
-                return true;
+                isSuccess1=true;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        //小说表中的收藏数-1
+        String sql2 = "update novel set cltNum=cltNum-1 where id=?";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql2);
+            pst.setInt(1,book.getId());
+            int value = pst.executeUpdate();
+            if(value>0){
+                book.OneMinusCltNum();
+                isSuccess2=true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return (isSuccess1&&isSuccess2);
     }
 }
