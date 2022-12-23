@@ -33,4 +33,11 @@
     <!--mode-->
     <string name="mode.night">夜间</string>
     <string name="mode.morning">日间</string>
+
+    <!--select-->
+    <string-array name="search_select">
+        <item>书名</item>
+        <item>作者</item>
+        <item>id</item>
+    </string-array>
 </resources>

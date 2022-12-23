@@ -12,8 +12,10 @@
     <color name="colorAccent">#FF4081</color><!--色彩强调-->
     <color name="snow">#fffafa</color><!--雪白色 -->
     <color name="cornflowerblue">#6495ed</color><!--菊兰色 -->
-
+    <color name="royalblue">#4169e1</color><!--皇家蓝 -->
+    <color name="page_background_color">#eee</color>
     <color name="nb.theme.background">@color/white</color>
+    <color name="navigate">#666</color>
 
     <!--common-->
     <color name="transparent">#00000000</color>
@@ -238,7 +240,7 @@
 <!--    <color name="mediumblue">#0000cd</color>&lt;!&ndash;中兰色 &ndash;&gt;-->
 <!--    <color name="midnightblue">#191970</color>&lt;!&ndash;中灰兰色 &ndash;&gt;-->
 <!--    <color name="navy">#000080</color>&lt;!&ndash;海军色 &ndash;&gt;-->
-<!--    <color name="royalblue">#4169e1</color>&lt;!&ndash;皇家蓝 &ndash;&gt;-->
+<!--    -->
 <!--    <color name="azure">#f0ffff</color>&lt;!&ndash;天蓝色 &ndash;&gt;-->
 <!--    <color name="skyblue">#87ceeb</color>&lt;!&ndash;天蓝色 &ndash;&gt;-->
 <!--    <color name="deepskyblue">#00bfff</color>&lt;!&ndash;深天蓝色 &ndash;&gt;-->

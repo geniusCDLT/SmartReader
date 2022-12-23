@@ -26,6 +26,50 @@
         <item name="android:textColor">@drawable/tab_menu_text</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="md_icon_size_style">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+    </style>
+    <style name="user_category_style">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="sm_icon_size_style">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+    </style>
+    <style name="title_font_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/big_font_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="user_data">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/big_font_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="normal_text_style">
+        <item name="android:textColor">@color/navigate</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="small_img_style">
+        <item name="android:layout_width">@dimen/small_img_size</item>
+        <item name="android:layout_height">@dimen/small_img_size</item>
+    </style>
+    <style name="user_title">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     
     <!--Dialog-->
     <style name="CommonDialog" parent="@style/Theme.AppCompat.Light.Dialog">

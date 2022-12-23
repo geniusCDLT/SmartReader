@@ -8,9 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.smartreader.Activity.MainActivity;
-import com.example.smartreader.Activity.fragment.BookMallFragment;
-import com.example.smartreader.Activity.fragment.BookrackFragment;
-import com.example.smartreader.Activity.fragment.BookshelfFragment;
+import com.example.smartreader.Activity.fragment.*;
 
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -18,13 +16,13 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private BookshelfFragment bookshelfFragment;
     private BookMallFragment bookMallFragment;
-    private BookrackFragment bookrackFragment;
+    private MineFragment MineFragment;
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         bookshelfFragment =new BookshelfFragment();
         bookMallFragment =new BookMallFragment();
-        bookrackFragment =new BookrackFragment();
+        MineFragment =new MineFragment();
     }
 
     @Override
@@ -38,7 +36,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
                 fragment = bookMallFragment;
                 break;
             case MainActivity.PAGE_THREE:
-                fragment = bookrackFragment;
+                fragment = MineFragment;
                 break;
         }
         return fragment;
