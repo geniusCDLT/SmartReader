@@ -25,6 +25,7 @@ import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.User;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +47,12 @@ public class BookshelfFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ListView listView=getActivity().findViewById(R.id.lv_list);
+    private ListView listView;
+    private List<Book>books=new ArrayList<>();
 
-    private List<Book> books;
 
-    private BookListAdapter adapter=new BookListAdapter(getActivity());
+
+    private BookListAdapter adapter;
     public BookshelfFragment() {
         // Required empty public constructor
     }
@@ -81,16 +83,47 @@ public class BookshelfFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
+        listView=(ListView)view.findViewById(R.id.lv_list);
+
+//        Intent intent=((MainActivity)getActivity()).getIntent();
+//        User user= (User) intent.getSerializableExtra("user");
+//        MainServiceImpl mainService=new MainServiceImpl();
+//        ArrayList<Integer> folder;
+//        books=mainService.GetFolderBooks(user,"尚未分类");
+//        adapter.setBs(books);
+//        if(books!=null){
+//            System.out.println(books.size());
+//        }
+//
+//        listView.setAdapter(adapter);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(((MainActivity)getActivity()).getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);
+//            }
+//        });
+
         new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
-
-
+        return view;
     }
 
     class MyRunnableDisplay implements  Runnable{
         @Override
         public void run() {
             Intent intent=((MainActivity)getActivity()).getIntent();
-            books= (List<Book>) intent.getSerializableExtra("books");
+            User user= (User) intent.getSerializableExtra("user");
+            MainServiceImpl mainService=new MainServiceImpl();
+            ArrayList<Integer> folder;
+            books=mainService.GetFolderBooks(user,"尚未分类");
             int msg=0;
             if(books!=null){
                 msg=1;
@@ -101,14 +134,8 @@ public class BookshelfFragment extends Fragment {
 
     private Handler Display=new Handler(){
         public  void handleMessage(android.os.Message msg){
-
             if(msg.what==1){
-
-                adapter.setBs(books);
-                if(books!=null){
-                    System.out.println("不为空");
-                }
-                listView.setAdapter(adapter);
+                listView.setAdapter(new BookListAdapter(getActivity(),books));
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -119,11 +146,4 @@ public class BookshelfFragment extends Fragment {
 
         }
     };
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookshelf, container, false);
-    }
   }

@@ -46,7 +46,7 @@ public class SearchServiceImpl implements SearchService {
                 String desc = rs.getString(3);
                 String author = rs.getString(4);
                 String novelType = rs.getString(5);
-                Blob cover = rs.getBlob(6);
+                String  cover = rs.getString(6);
                 int cltNum = rs.getInt(7);
 
                 Book book=new Book(id, title, desc, author, novelType, cover, cltNum);

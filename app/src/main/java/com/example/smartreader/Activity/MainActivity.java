@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private GridView mGridView;
     private List<Book> books;
 
-    private BookListAdapter adapter=new BookListAdapter(this);
+    //private BookListAdapter adapter=new BookListAdapter(this);
     private ListView listView;
 
     protected List<Fragment> createTabFragments() {

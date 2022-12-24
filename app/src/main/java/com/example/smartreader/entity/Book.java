@@ -9,11 +9,11 @@ public class Book implements Serializable {
     private String desc;//简介
     private String author;//作者
     private String novelType;//小说类型
-    private Blob cover;//封面图片
+    private String cover;//封面图片
     private int cltNum;//收藏人数
 
     public Book(){};
-    public Book(int id, String title, String desc, String author, String novelType, Blob cover, int cltNum){
+    public Book(int id, String title, String desc, String author, String novelType, String cover, int cltNum){
         this.id=id;
         this.title=title;
         this.desc=desc;
@@ -53,10 +53,10 @@ public class Book implements Serializable {
     public void setNovelType(String novelType){
         this.novelType=novelType;
     }
-    public Blob getCover(){
+    public String getCover(){
         return this.cover;
     }
-    public void setCover(Blob cover){
+    public void setCover(String  cover){
         this.cover=cover;
     }
 

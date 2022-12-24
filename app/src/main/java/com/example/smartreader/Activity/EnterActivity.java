@@ -29,7 +29,7 @@ public class EnterActivity extends AppCompatActivity {
     private Button BLogin;
     private TextView register;
     ListView listView;
-    private List<Book> books;
+    static List<Book> books;
 
     public  User user=new User();//用户信息
 
@@ -63,10 +63,6 @@ public class EnterActivity extends AppCompatActivity {
                     EnterServiceImpl enter=new EnterServiceImpl();
                     user=enter.login(EtUsername.getText().toString(),EtPwd.getText().toString());
 
-                    MainServiceImpl mainService=new MainServiceImpl();
-                    ArrayList<Integer> folder;
-                    books=mainService.GetFolderBooks(user,"尚未分类");
-
                 }
                 int msg=0;
                 if(user!=null){
@@ -92,7 +88,6 @@ public class EnterActivity extends AppCompatActivity {
                 intent=new Intent(EnterActivity.this, MainActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("user", user);
-                bundle.putSerializable("books", (Serializable) books);
 
                 intent.putExtras(bundle);
                 startActivity(intent);

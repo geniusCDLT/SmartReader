@@ -43,12 +43,12 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        BlobAndBase64Utils blob=new BlobAndBase64Utils();
-        String Base64=blob.getBase64InBlob(bookList.get(i%bookList.size()).getCover());
+       BlobAndBase64Utils blob=new BlobAndBase64Utils();
+        //String Base64=blob.getBase64InBlob(bookList.get(i%bookList.size()).getCover());
         view= LayoutInflater.from(mContext).inflate(R.layout.grid_view_item_layout,null);
         ImageView cover=view.findViewById(R.id.iv_gridView_cover);
         TextView title=view.findViewById(R.id.tv_gridView_title);
-        cover.setImageBitmap(blob.StringToBitmap(Base64));
+        cover.setImageBitmap(blob.StringToBitmap(bookList.get(i%bookList.size()).getCover()));
         title.setText(bookList.get(i%bookList.size()).getTitle());
         return view;
     }

@@ -21,8 +21,9 @@ public class BookListAdapter extends BaseAdapter {
     Context context;
     List<Book> Bs;
 
-    public BookListAdapter(Context context) {
+    public BookListAdapter(Context context,List<Book>Bs) {
         this.context=context;
+        this.Bs=Bs;
 
     }
 
@@ -36,6 +37,7 @@ public class BookListAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
+        System.out.println("BS+"+Bs.size());
         return Bs.size();
     }
 
@@ -79,8 +81,8 @@ public class BookListAdapter extends BaseAdapter {
         holder.type.setText(b.getNovelType());
         holder.desc.setText(b.getDesc());
         BlobAndBase64Utils blob=new BlobAndBase64Utils();
-        String Base64=blob.getBase64InBlob(b.getCover());
-        holder.cover.setImageBitmap(blob.StringToBitmap(Base64));
+       // String Base64=blob.getBase64InBlob(b.getCover());
+        holder.cover.setImageBitmap(blob.StringToBitmap(b.getCover()));
         return convertView;
     }
 

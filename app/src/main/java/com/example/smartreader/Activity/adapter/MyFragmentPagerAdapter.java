@@ -18,11 +18,14 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private BookMallFragment bookMallFragment;
     private MineFragment MineFragment;
 
+
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         bookshelfFragment =new BookshelfFragment();
         bookMallFragment =new BookMallFragment();
         MineFragment =new MineFragment();
+
+
     }
 
     @Override
@@ -31,6 +34,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case MainActivity.PAGE_ONE:
                 fragment = bookshelfFragment;
+
                 break;
             case MainActivity.PAGE_TWO:
                 fragment = bookMallFragment;
