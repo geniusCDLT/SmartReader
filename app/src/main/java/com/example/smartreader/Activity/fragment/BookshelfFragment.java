@@ -1,8 +1,5 @@
 package com.example.smartreader.Activity.fragment;
 
-import static android.content.Intent.getIntent;
-import static android.content.Intent.getIntentOld;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,16 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.smartreader.Activity.MainActivity;
-import com.example.smartreader.Activity.ReadActivity;
 import com.example.smartreader.Activity.adapter.BookListAdapter;
-import com.example.smartreader.Activity.adapter.MyAdapter;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.Book;

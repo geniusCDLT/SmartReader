@@ -82,7 +82,7 @@ public class BookListAdapter extends BaseAdapter {
         holder.desc.setText(b.getDesc());
         BlobAndBase64Utils blob=new BlobAndBase64Utils();
        // String Base64=blob.getBase64InBlob(b.getCover());
-        holder.cover.setImageBitmap(blob.StringToBitmap(b.getCover()));
+        //holder.cover.setImageBitmap(blob.StringToBitmap(b.getCover()));
         return convertView;
     }
 

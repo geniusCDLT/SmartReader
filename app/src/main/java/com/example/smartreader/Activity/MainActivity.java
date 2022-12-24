@@ -1,33 +1,22 @@
 package com.example.smartreader.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.smartreader.Activity.adapter.BookListAdapter;
-import com.example.smartreader.Activity.adapter.MyAdapter;
 import com.example.smartreader.Activity.adapter.MyFragmentPagerAdapter;
 import com.example.smartreader.Activity.fragment.BookMallFragment;
 import com.example.smartreader.Activity.fragment.BookshelfFragment;
 import com.example.smartreader.R;
-import com.example.smartreader.Service.impl.CatalogServiceImpl;
-import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.Book;
-import com.example.smartreader.entity.User;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
