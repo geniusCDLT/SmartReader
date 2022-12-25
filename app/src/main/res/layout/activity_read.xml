@@ -9,10 +9,41 @@
     tools:context=".Activity.ReadActivity"
     android:orientation="horizontal">
 
+
     <RelativeLayout
+        android:id="@+id/Rl_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
+
+            <androidx.drawerlayout.widget.DrawerLayout
+                android:id="@+id/draw_l"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <!--左边抽屉菜单-->
+                <RelativeLayout
+                    android:id="@+id/rl_left"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/theme_leather_bg"
+                    android:layout_gravity="left"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="目录"
+                        android:textColor="@color/nb.text.default"
+                        android:textSize="20sp" />
+
+                    <ListView
+                        android:id="@+id/lv_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+            </androidx.drawerlayout.widget.DrawerLayout>
 
         <!--切换页面提示-->
         <TextView
@@ -83,12 +114,14 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+               >
 
                 <TextView
                     android:id="@+id/chapter_content"
@@ -135,6 +168,7 @@
                     android:max="100"
                     android:maxHeight="3dp"
                     android:minHeight="3dp"
+                    android:progress="0"
                     android:progressDrawable="@drawable/seekbar_bg"
                     android:thumb="@drawable/seekbar_thumb"
                     android:thumbOffset="10dp" />
@@ -175,38 +209,43 @@
                     android:text="@string/read.setting" />
             </LinearLayout>
         </LinearLayout>
+
+
     </RelativeLayout>
 
+
+
     <!--侧滑栏-->
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@drawable/theme_leather_bg"
-        android:clickable="true"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/nb.padding.large"
-        android:paddingBottom="@dimen/nb.padding.large">
+<!--    <LinearLayout-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:background="@drawable/theme_leather_bg"-->
+<!--        android:clickable="true"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingTop="@dimen/nb.padding.large"-->
+<!--        android:paddingBottom="@dimen/nb.padding.large">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="8dp"
-            android:text="目录"
-            android:textColor="@color/nb.text.default"
-            android:textSize="20sp" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:text="目录"-->
+<!--            android:textColor="@color/nb.text.default"-->
+<!--            android:textSize="20sp" />-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1">-->
 
-            <ListView
-                android:id="@+id/read_iv_category"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
-        </RelativeLayout>
-    </LinearLayout>
+<!--            <ListView-->
+<!--                android:id="@+id/read_iv_category"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scrollbars="vertical" />-->
+<!--        </RelativeLayout>-->
+<!--    </LinearLayout>-->
+
 </LinearLayout>
