@@ -24,10 +24,10 @@ public class RankingListServiceImpl implements RankingListService {
         ArrayList<Book> RankingBooks = new ArrayList<>();
         String sql="select * from novel ";
         //sql语句执行顺序：先where,再order by,再limit
-        if(category!="总榜"){
+        if(!category.equals("总榜")){
             sql+="where noveltype='"+category+"' ";
         }
-        sql+=("order by cltNum desc limit "+k);
+        sql+=("order by collectNum desc limit "+k);
 
         try {
             PreparedStatement pst=con.prepareStatement(sql);
