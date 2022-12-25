@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/page_background_color"
+    android:orientation="vertical"
+    tools:context=".Activity.BookDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="672dp"
+        android:padding="@dimen/container_padding_size">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_radius"
+                android:orientation="horizontal"
+                android:padding="@dimen/container_padding_size">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/book_img_width"
+                    android:layout_height="@dimen/book_img_height"
+                    android:onClick="goPlay">
+
+                    <ImageView
+                        android:id="@+id/detail_book_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_book_loading"
+                        app:riv_corner_radius="@dimen/small_margin_size"
+                        app:riv_oval="false" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_margin_size"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/detail_book_name"
+                        style="@style/title_font_style" />
+
+                    <TextView
+                        android:id="@+id/detail_book_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_margin_size"
+                        android:textColor="@color/navigate" />
+
+                    <TextView
+                        android:id="@+id/detail_book_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_margin_size"
+                        android:textColor="@color/navigate" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/container_padding_size"
+                android:background="@drawable/border_radius"
+                android:orientation="vertical"
+                android:padding="@dimen/container_padding_size">
+
+                <include
+                    android:id="@+id/detail_plot_title"
+                    layout="@layout/module_title" />
+
+                <TextView
+                    android:id="@+id/detail_plot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/detail_comment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/container_padding_size"
+                android:background="@drawable/border_radius"
+                android:orientation="vertical"
+                android:padding="@dimen/container_padding_size">
+
+                <include
+                    android:id="@+id/detail_comment_title"
+                    layout="@layout/module_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_comment_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/detail_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/border_radius"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/detail_add_bookshelf"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_common"
+            android:gravity="center"
+            android:text="加入书架"
+            android:textColor="@color/navigate" />
+
+
+        <Button
+            android:id="@+id/detail_directory"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_common"
+            android:gravity="center"
+            android:text="查看目录"
+            android:textColor="@color/navigate" />
+
+        <Button
+            android:id="@+id/detail_book_read"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_read_blue"
+            android:gravity="center"
+            android:text="阅 读"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
