@@ -15,6 +15,7 @@
     <color name="royalblue">#4169e1</color><!--皇家蓝 -->
     <color name="page_background_color">#eee</color>
     <color name="nb.theme.background">@color/white</color>
+    <color name="background_blue">#1890ff</color>
     <color name="navigate">#666</color>
 
     <!--common-->
