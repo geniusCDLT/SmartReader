@@ -7,8 +7,8 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -23,10 +23,9 @@ import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.CatalogServiceImpl;
 import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.Chapter;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 
-import java.io.Serializable;
-import java.net.ContentHandler;
 import java.util.List;
 
 public class ReadActivity extends AppCompatActivity {
@@ -54,6 +53,13 @@ public class ReadActivity extends AppCompatActivity {
 
     private TextView TvBrief;
 
+    private LinearLayout lr_read;
+    private boolean show=true;
+    private AppBarLayout  bar;
+    private LinearLayout lr_bottom;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,7 @@ public class ReadActivity extends AppCompatActivity {
         mLvContent.setOnItemClickListener(this::onItemClick);
       //  mRlLeft.setOnClickListener(this::SlideMenuClose);
         TvBrief.setOnClickListener(this::ToBrief);
+        T_chapter.setOnClickListener(this::DisplayClick);
 
     }
 
@@ -90,6 +97,9 @@ public class ReadActivity extends AppCompatActivity {
         rl_main=findViewById(R.id.Rl_main);
         TvBrief=findViewById(R.id.read_tv_brief);
         dra = findViewById(R.id.draw_l);
+        lr_read=findViewById(R.id.content);
+        bar=findViewById(R.id.read_abl_top_menu);
+        lr_bottom=findViewById(R.id.read_ll_bottom_menu);
 
 
     }
@@ -175,16 +185,31 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void ToBrief(View view){
+
+
         Intent intent=null;
         intent=new Intent(this,BookDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("book", book);
-        bundle.putSerializable("chapterList", (Serializable) chapterList);
+       // bundle.putSerializable("chapterList", (Serializable) chapterList);
         intent.putExtras(bundle);
         Toast.makeText(this, "进入简介页成功！", Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
+    public void DisplayClick(View view){
+        if(show){
+            bar.setVisibility(view.GONE);
+            lr_bottom.setVisibility(view.GONE);
+            show=false;
+        }
+        else{
+            bar.setVisibility(view.VISIBLE);
+            lr_bottom.setVisibility(view.VISIBLE);
+            show=true;
+        }
+
+    }
 
      class MyRunnableChapter implements  Runnable{
         @Override
@@ -192,11 +217,12 @@ public class ReadActivity extends AppCompatActivity {
             CatalogServiceImpl catalogService=new CatalogServiceImpl();
             chapterList=catalogService.GetAllChapter(book.getId());
             //chapter=catalogService.GetChapter("第一章 红药堂",book.getId());
-            int msg=0;
-            if(chapterList!=null){
-                msg=1;
-            }
-            ContentShowHandle.sendEmptyMessage(msg);
+                int msg=0;
+                if(chapterList!=null){
+                    msg=1;
+                }
+                ContentShowHandle.sendEmptyMessage(msg);
+
         }
     }
 

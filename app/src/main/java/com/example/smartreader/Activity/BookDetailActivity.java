@@ -92,7 +92,7 @@ public class BookDetailActivity extends AppCompatActivity {
         Intent intent=null;
         intent=new Intent(this,CategoryActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("chapterList", (Serializable) chapterList);
+
         bundle.putSerializable("books", book);
         intent.putExtras(bundle);
         Toast.makeText(this, "进入简介页成功！", Toast.LENGTH_SHORT).show();
