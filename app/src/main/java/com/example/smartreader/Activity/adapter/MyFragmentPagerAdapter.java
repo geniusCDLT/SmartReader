@@ -24,8 +24,6 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         bookshelfFragment =new BookshelfFragment();
         bookMallFragment =new BookMallFragment();
         MineFragment =new MineFragment();
-
-
     }
 
     @Override
