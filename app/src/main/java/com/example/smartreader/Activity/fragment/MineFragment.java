@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import com.example.smartreader.R;
 import com.example.smartreader.entity.ResultEntity;
 
-import java.util.Map;
-import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
