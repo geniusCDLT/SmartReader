@@ -1,41 +1,42 @@
 package com.example.smartreader.Activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.smartreader.Activity.adapter.ReferralAdapter;
+import android.os.Bundle;
+import com.example.smartreader.Activity.adapter.BookListAdapter;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.RankingListServiceImpl;
+import com.example.smartreader.Service.impl.SearchServiceImpl;
 import com.example.smartreader.entity.Book;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchResultActivity extends AppCompatActivity {
     //控件
     private EditText SrhEt;
     private ImageView SrhIv;
     private Spinner spinner;
     private TextView TypeTv;
-    private ListView rfLv;
-    //推荐书籍列表
+    private ListView SrhLv;
+    //搜索书籍列表
     private List<Book> books=new ArrayList<>();
     //搜索类别
     private String type;
+    //搜索内容
+    private String srh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_search_result);
 
         //找到控件
-        rfLv=findViewById(R.id.lv_referral_list);
+        SrhLv=findViewById(R.id.lv_search_list);
         SrhEt=findViewById(R.id.search_et_input);
         SrhIv=findViewById(R.id.search_iv_search);
         spinner=(Spinner)findViewById(R.id.search_spinner);
@@ -45,11 +46,17 @@ public class SearchActivity extends AppCompatActivity {
         ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,city);
         spinner.setAdapter(adapter);//绑定Adapter到控件
 
+        //获得SearchActivity的搜索内容和类型
+        srh=getIntent().getStringExtra("search");
+        type=getIntent().getStringExtra("type");
+        SrhEt.setText(srh);
+        TypeTv.setText(type);
+
         //下拉选择框监听
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                type=SearchActivity.this.getResources().getStringArray(R.array.search_select)[position];
+                type=SearchResultActivity.this.getResources().getStringArray(R.array.search_select)[position];
                 TypeTv.setText(type);
             }
             @Override
@@ -57,29 +64,23 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        //搜索
+        //新的搜索
         SrhIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
-                String srh = SrhEt.getText().toString().trim();
-                intent.putExtra("search", srh);
-                intent.putExtra("type",type);
-                startActivity(intent);
+                srh = SrhEt.getText().toString().trim();
+                new Thread(new SearchResultActivity.MyRunnableDisplay()).start();
             }
         });
 
-        new Thread(new SearchActivity.MyRunnableDisplay()).start();
+        new Thread(new SearchResultActivity.MyRunnableDisplay()).start();
     }
 
-    /**
-     * 热门推荐搜索
-     */
     class MyRunnableDisplay implements Runnable{
         @Override
         public void run() {
-            RankingListServiceImpl rankingListService=new RankingListServiceImpl();
-            books=rankingListService.GetCategoryRank("总榜", 10);
+            SearchServiceImpl searchService = new SearchServiceImpl();
+            books=searchService.GetSearchBooks(srh, type);
             int msg=0;
             if(books!=null){
                 msg=1;
@@ -91,8 +92,8 @@ public class SearchActivity extends AppCompatActivity {
     private Handler Display=new Handler(){
         public  void handleMessage(android.os.Message msg){
             if(msg.what==1){
-                rfLv.setAdapter(new ReferralAdapter(getApplicationContext(),books));
-                rfLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                SrhLv.setAdapter(new BookListAdapter(getApplicationContext(),books));
+                SrhLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Toast.makeText(getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);

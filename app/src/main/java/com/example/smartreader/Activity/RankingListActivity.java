@@ -67,9 +67,9 @@ public class RankingListActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);
                         Intent intent=null;
                         Toast.makeText(getApplicationContext(),"进入详情页成功！", Toast.LENGTH_SHORT).show();
-                        intent=new Intent(getApplicationContext(), ReadActivity.class);
+                        intent=new Intent(getApplicationContext(), BookDetailActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("books", (Serializable) books.get(i));
+                        bundle.putSerializable("book", (Serializable) books.get(i));
                         intent.putExtras(bundle);
                         startActivity(intent);
 

@@ -23,19 +23,15 @@ public class SearchServiceImpl implements SearchService {
      * @return
      */
     @Override
-    public ArrayList<Book> GetSearchBooks(String scontent, int swhat) {
+    public ArrayList<Book> GetSearchBooks(String scontent, String swhat) {
         ArrayList<Book> SearchBooks = new ArrayList<>();
         String sql="select * from novel where ";
-        switch (swhat){
-            case 1://书名
-                sql+=("title like '%"+scontent+"%'");
-                break;
-            case 2://作者
-                sql+=("author = '"+scontent+"'");
-                break;
-            case 3://id
-                sql+=("id = '"+scontent+"'");
-                break;
+        if(swhat.equals("书名")){
+            sql+=("title like '%"+scontent+"%'");
+        } else if (swhat.equals("作者")) {
+            sql+=("author = '"+scontent+"'");
+        } else if (swhat.equals("id")) {
+            sql+=("id = '"+scontent+"'");
         }
         try {
             PreparedStatement pst=con.prepareStatement(sql);

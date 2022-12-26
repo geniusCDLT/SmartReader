@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <TextView
+            android:id="@+id/tv_referral_title"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawablePadding="10dp"
+            android:padding="15dp"
+            android:text="女主对此感到厌烦"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/nb.text.common_h1"
+            android:textSize="18sp" />
+    <TextView
+            android:id="@+id/tv_referral_author"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawablePadding="10dp"
+            android:padding="15dp"
+            android:text="妚鹤"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/nb.text.common_h2"
+            android:textSize="16sp" />
+
+</LinearLayout>

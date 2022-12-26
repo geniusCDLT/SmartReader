@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="?attr/actionBarSize"
+              android:background="@color/colorPrimary"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp"
+              android:elevation="5dp">
+    <ImageView
+            android:id="@+id/search_iv_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/search_back"
+            android:padding="6dp"
+            android:scaleType="centerInside"/>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+
+            android:background="@drawable/shape_common_gray_corner">
+
+        <EditText
+                android:padding="8dp"
+                android:id="@+id/search_et_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textCursorDrawable="@color/red"
+                android:textSize="14sp"
+                android:hint="请输入书名 | 作者名 | id"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:imeOptions="actionSearch"
+                android:background="@color/common_gray"/>
+
+        <Spinner
+                android:id="@+id/search_spinner"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+        />
+        <TextView
+                android:id="@+id/search_tv_type"
+                android:layout_width="38dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="书名"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"/>
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/search_iv_search"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search_normal"
+            android:layout_marginLeft="8dp"
+            android:padding="6dp"
+            android:scaleType="centerInside"/>
+</LinearLayout>
