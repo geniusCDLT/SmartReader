@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.smartreader.R;
+import com.example.smartreader.entity.ResultEntity;
+
+import java.util.Map;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +60,7 @@ public class MineFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
