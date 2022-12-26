@@ -18,11 +18,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.smartreader.Activity.adapter.ReadCatalogAdapter;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.CatalogServiceImpl;
 import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.Chapter;
+import com.google.android.material.navigation.NavigationView;
 
+import java.io.Serializable;
 import java.net.ContentHandler;
 import java.util.List;
 
@@ -38,16 +41,18 @@ public class ReadActivity extends AppCompatActivity {
     private SeekBar seekBar;
 
     private FrameLayout mFlContent;
-    private RelativeLayout mRlLeft;
+    private NavigationView mRlLeft;
     private ListView mLvContent;
     private TextView mTvLeft;
     private DrawerLayout dra;
     private int clickTimes=0;//点击次数
-    private String[] leftMenuNames =new String[60];
+    private String[] leftMenuNames =new String[200];
 
     private TextView mTvReadNight;
     private RelativeLayout rl_main;
     private int nightOrWhite=0;
+
+    private TextView TvBrief;
 
 
     @Override
@@ -65,9 +70,10 @@ public class ReadActivity extends AppCompatActivity {
         PreChapter.setOnClickListener(this::PreChapter);
         NextChapter.setOnClickListener(this::NextChapter);
         mTvLeft.setOnClickListener(this::slideMenu);
-        mLvContent.setOnItemClickListener(this::onItemClick);
         mTvReadNight.setOnClickListener(this::changeNight);
+        mLvContent.setOnItemClickListener(this::onItemClick);
       //  mRlLeft.setOnClickListener(this::SlideMenuClose);
+        TvBrief.setOnClickListener(this::ToBrief);
 
     }
 
@@ -82,9 +88,8 @@ public class ReadActivity extends AppCompatActivity {
         mTvLeft=findViewById(R.id.read_tv_category);
         mTvReadNight=findViewById(R.id.read_tv_night_mode);
         rl_main=findViewById(R.id.Rl_main);
-
+        TvBrief=findViewById(R.id.read_tv_brief);
         dra = findViewById(R.id.draw_l);
-
 
 
     }
@@ -136,12 +141,7 @@ public class ReadActivity extends AppCompatActivity {
      */
     public void slideMenu(View view){
         dra.setScrimColor(Color.TRANSPARENT);
-        for(int i=0;i<chapterList.size();i++){
-            leftMenuNames[i]=chapterList.get(i).getTitle();
-        }
-        mLvContent.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, leftMenuNames));//给左边菜单写入数据
-
+        mLvContent.setAdapter(new ReadCatalogAdapter(this,chapterList));
         if(clickTimes==0){
             dra.openDrawer(Gravity.LEFT);
             clickTimes=1;
@@ -157,6 +157,10 @@ public class ReadActivity extends AppCompatActivity {
         chapterPosition=pI;
     }
 
+    /**
+     * 夜间模式
+     * @param view
+     */
     public void changeNight(View view){
       if(nightOrWhite==0){
           rl_main.setBackgroundColor(Color.BLACK);
@@ -168,6 +172,17 @@ public class ReadActivity extends AppCompatActivity {
           T_chapter.setTextColor(Color.GRAY);
           nightOrWhite=0;
       }
+    }
+
+    public void ToBrief(View view){
+        Intent intent=null;
+        intent=new Intent(this,BookDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("book", book);
+        bundle.putSerializable("chapterList", (Serializable) chapterList);
+        intent.putExtras(bundle);
+        Toast.makeText(this, "进入简介页成功！", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
     }
 
 

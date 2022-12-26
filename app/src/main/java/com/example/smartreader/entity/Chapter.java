@@ -1,9 +1,10 @@
 package com.example.smartreader.entity;
 
+import java.io.Serializable;
 import java.sql.Time;
 
 //小说章节实体类
-public class Chapter {
+public class Chapter implements Serializable {
     private Integer id;
     private String title;
     private Integer novelId;

@@ -37,7 +37,7 @@ public class BookListAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        System.out.println("BS+"+Bs.size());
+       // System.out.println("BS+"+Bs.size());
         return Bs.size();
     }
 

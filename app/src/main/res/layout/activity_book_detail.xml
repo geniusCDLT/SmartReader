@@ -35,8 +35,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_book_loading"
-                        app:riv_corner_radius="@dimen/small_margin_size"
-                        app:riv_oval="false" />
+
+                        />
+<!--                    app:riv_corner_radius="@dimen/small_margin_size"-->
+<!--                    app:riv_oval="false"-->
+
                 </RelativeLayout>
 
                 <LinearLayout
