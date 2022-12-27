@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         switch (checkedId) {
             case R.id.rb_bookshelf:
                 vpager.setCurrentItem(PAGE_ONE);
-
-
                 break;
             case R.id.rb_mall:
                 vpager.setCurrentItem(PAGE_TWO);
@@ -150,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             switch (vpager.getCurrentItem()) {
                 case PAGE_ONE:
                     rb_bookshelf.setChecked(true);
+
                     break;
                 case PAGE_TWO:
                     rb_mall.setChecked(true);

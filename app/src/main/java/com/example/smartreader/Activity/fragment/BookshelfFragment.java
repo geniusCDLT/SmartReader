@@ -97,7 +97,6 @@ public class BookshelfFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
         listView=(ListView)view.findViewById(R.id.lv_list);
         //onAttach(getContext());
-
         new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
         return view;
     }
@@ -134,8 +133,6 @@ public class BookshelfFragment extends Fragment {
         public  void handleMessage(android.os.Message msg){
             if(msg.what==1){
                 //listView.setAdapter(new BookListAdapter(getActivity(),books));
-
-
                 listView.setAdapter(new Parent_Adapter(getActivity(),folders,AllBook));
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
