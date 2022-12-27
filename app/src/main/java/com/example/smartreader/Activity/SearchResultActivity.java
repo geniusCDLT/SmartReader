@@ -11,6 +11,7 @@ import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.RankingListServiceImpl;
 import com.example.smartreader.Service.impl.SearchServiceImpl;
 import com.example.smartreader.entity.Book;
+import com.example.smartreader.entity.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class SearchResultActivity extends AppCompatActivity {
     private String type;
     //搜索内容
     private String srh;
+    //用户
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class SearchResultActivity extends AppCompatActivity {
         ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,city);
         spinner.setAdapter(adapter);//绑定Adapter到控件
 
+        //每个activity都应具有并向下一个activity传递user
+        user=(User)getIntent().getSerializableExtra("user");
         //获得SearchActivity的搜索内容和类型
         srh=getIntent().getStringExtra("search");
         type=getIntent().getStringExtra("type");
@@ -102,6 +107,8 @@ public class SearchResultActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), BookDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("book", (Serializable) books.get(i));
+                        //每个activity都应具有并向下一个activity传递user
+                        bundle.putSerializable("user", user);
                         intent.putExtras(bundle);
                         startActivity(intent);
 

@@ -12,6 +12,7 @@ import com.example.smartreader.Activity.adapter.ReferralAdapter;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.RankingListServiceImpl;
 import com.example.smartreader.entity.Book;
+import com.example.smartreader.entity.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class SearchActivity extends AppCompatActivity {
     private List<Book> books=new ArrayList<>();
     //搜索类别
     private String type;
+    //用户
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class SearchActivity extends AppCompatActivity {
         SrhIv=findViewById(R.id.search_iv_search);
         spinner=(Spinner)findViewById(R.id.search_spinner);
         TypeTv=findViewById(R.id.search_tv_type);
+
+        //每个activity都应具有并向下一个activity传递user
+        user=(User)getIntent().getSerializableExtra("user");
 
         String[]city=getResources().getStringArray(R.array.search_select);//建立数据源
         ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,city);
@@ -65,6 +71,11 @@ public class SearchActivity extends AppCompatActivity {
                 String srh = SrhEt.getText().toString().trim();
                 intent.putExtra("search", srh);
                 intent.putExtra("type",type);
+                //每个activity都应具有并向下一个activity传递user
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                intent.putExtras(bundle);
+
                 startActivity(intent);
             }
         });
@@ -101,6 +112,8 @@ public class SearchActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), BookDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("book", (Serializable) books.get(i));
+                        //每个activity都应具有并向下一个activity传递user
+                        bundle.putSerializable("user", user);
                         intent.putExtras(bundle);
                         startActivity(intent);
 
