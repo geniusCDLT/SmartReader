@@ -1,5 +1,8 @@
 package com.example.smartreader.Activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -68,6 +71,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         initViews();
         rb_bookshelf.setChecked(true);
+        //去取登录的token，在第一运行应用时，token是空，
+        SharedPreferences sp = getSharedPreferences("token", Context.MODE_PRIVATE);
+        String token = sp.getString("token","");
+        if (token.isEmpty() || token == null){
+            //为空时会直接跳转到登录界面
+            this.startActivity(new Intent(this.getApplicationContext(),EnterActivity.class));
+            finish();
+        }else {
+            //实现token登录请求
+            System.out.println("二次登录验证O(∩_∩)O哈哈~");
+        }
         //listView=getFragmentManager().findFragmentById(R.id.rb_bookshelf).getView().findViewById(R.id.lv_list);
        // new Thread(new MainActivity.MyRunnableDisplay()).start();
 

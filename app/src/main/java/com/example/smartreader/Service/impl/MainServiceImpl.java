@@ -291,4 +291,37 @@ public class MainServiceImpl implements MainService {
         }
         return false;
     }
+
+    /**
+     * 由token中的用户ID获得用户
+     * @param id
+     * @return
+     */
+    @Override
+    public User GetUserById(int id) {
+        String sql="select * from user where id = ?";
+        User user=new User();
+        if (con ==null){
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            System.out.println(""+con);
+        }
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setInt(1,id);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                String username= rs.getString(2);
+                String pwd=rs.getString(3);
+                String email=rs.getString(4);
+                user.setUsername(username);
+                user.setUserid(id);
+                user.setEmail(email);
+                user.setUserPassword(pwd);
+                return user;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 }

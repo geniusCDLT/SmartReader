@@ -1,6 +1,8 @@
 package com.example.smartreader.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -83,6 +85,13 @@ public class EnterActivity extends AppCompatActivity {
 
             if(msg.what == 1)
             {
+                // 登录请求 在成功的回调中将返回的token数据用SharedPreferences将token持久化 并 跳转到登录成功的界面
+                SharedPreferences sp = getSharedPreferences("token", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                String token = user.getUserid().toString();
+                editor.putString("token",token);
+                editor.commit();
+
                 Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_LONG).show();
                 Intent intent=null;
                 intent=new Intent(EnterActivity.this, MainActivity.class);

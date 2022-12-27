@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
 
     <application
             android:allowBackup="true"
@@ -34,19 +40,16 @@
         </activity>
         <activity
                 android:name=".Activity.EnterActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-
+                android:exported="false">
             <meta-data
                     android:name="android.app.lib_name"
                     android:value=""/>
         </activity>
         <activity
                 android:name=".Activity.ModifyActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".Activity.MineActivity"
                 android:exported="false"/>
 
         <meta-data
@@ -80,10 +83,6 @@
                 android:name="android.app.lib_name"
                 android:value=""/>
 
-        <activity
-                android:name=".Activity.MineActivity"
-                android:exported="false"/>
-
         <meta-data
                 android:name="android.app.lib_name"
                 android:value=""/>
@@ -98,7 +97,12 @@
 
         <activity
                 android:name=".Activity.MainActivity"
-                android:exported="false"/>
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <meta-data
                 android:name="android.app.lib_name"

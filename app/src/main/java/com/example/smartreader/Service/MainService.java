@@ -29,4 +29,6 @@ public interface MainService {
     boolean deleteCollectBooks(User user,Book book);
     //修改分类
     boolean updateCollectBooks(User user,Book book,String folderName);
+    //由token中的用户ID获得用户
+    User GetUserById(int id);
 }
