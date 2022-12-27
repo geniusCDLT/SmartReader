@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.smartreader.Activity.FloderMainActivity;
 import com.example.smartreader.Activity.MainActivity;
 import com.example.smartreader.Activity.ReadActivity;
 import com.example.smartreader.Activity.adapter.BookListAdapter;
@@ -121,7 +122,6 @@ public class BookshelfFragment extends Fragment {
                 }
             }
             ArrayList<Integer> folder;
-
             int msg=0;
             if(books!=null){
                 msg=1;
@@ -141,12 +141,12 @@ public class BookshelfFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        Toast.makeText(((MainActivity)getActivity()).getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);
+                       // Toast.makeText(((MainActivity)getActivity()).getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);
                         Intent intent=null;
                         Toast.makeText(getActivity(), "进入详情页成功！", Toast.LENGTH_SHORT).show();
-                        intent=new Intent(getActivity(), ReadActivity.class);
+                        intent=new Intent(getActivity(), FloderMainActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("books", (Serializable) books.get(i));
+                        bundle.putSerializable("books", (Serializable) AllBook.get(i));
                         bundle.putSerializable("user",user);
                         intent.putExtras(bundle);
                         startActivity(intent);
