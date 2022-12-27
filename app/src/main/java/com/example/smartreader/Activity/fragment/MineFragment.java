@@ -1,20 +1,31 @@
 package com.example.smartreader.Activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
+import com.example.smartreader.Activity.MainActivity;
 import com.example.smartreader.Activity.MineActivity;
+import com.example.smartreader.Activity.ReadActivity;
 import com.example.smartreader.Activity.SearchActivity;
+import com.example.smartreader.Activity.adapter.Parent_Adapter;
 import com.example.smartreader.R;
+import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.ResultEntity;
 import com.example.smartreader.entity.User;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -38,6 +49,7 @@ public class MineFragment extends Fragment {
     private ImageView EditIv;
     //用户
     private User user;
+    private Integer userid;
 
     public MineFragment() {
         // Required empty public constructor
@@ -74,15 +86,16 @@ public class MineFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //onAttach(getContext());
+        new Thread(new MineFragment.MyRunnable()).start();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
+
         //找到控件
         NameTv=view.findViewById(R.id.username);
         EditIv=view.findViewById(R.id.icon_edit);
         //每个activity都应具有并向下一个activity传递user
-        user=(User)(getActivity()).getIntent().getSerializableExtra("user");
-        //设置用户名
-        NameTv.setText(user.getUsername());
+        //user=(User)(getActivity()).getIntent().getSerializableExtra("user");
 
         //跳转编辑个人信息
         EditIv.setOnClickListener(new View.OnClickListener() {
@@ -98,4 +111,33 @@ public class MineFragment extends Fragment {
 
         return view;
     }
+
+    //获取用户
+    class MyRunnable implements  Runnable{
+        @Override
+        public void run() {
+            MainServiceImpl mainService=new MainServiceImpl();
+            user=mainService.GetUserById(userid);
+            int msg=0;
+            if(user!=null){
+                msg=1;
+            }
+            SetNameTv.sendEmptyMessage(msg);
+        }
+    }
+
+    //设置用户名
+    private Handler SetNameTv=new Handler(){
+        public  void handleMessage(android.os.Message msg) {
+            if (msg.what == 1) {
+                NameTv.setText(user.getUsername());
+            }
+        }
+    };
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userid=((MainActivity)context).GetUserId();
+    }
+
 }

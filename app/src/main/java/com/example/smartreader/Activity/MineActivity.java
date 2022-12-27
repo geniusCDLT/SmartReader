@@ -1,6 +1,8 @@
 package com.example.smartreader.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.View;
@@ -30,6 +32,7 @@ public class MineActivity extends AppCompatActivity implements View.OnClickListe
         user=(User)getIntent().getSerializableExtra("user");
 
         PwdLL.setOnClickListener(this);
+        LogoutBtn.setOnClickListener(this);
 
     }
 
@@ -39,11 +42,25 @@ public class MineActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.mine_ll_pwd://跳转修改密码
                 intent=new Intent(getApplicationContext(), ModifyActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                System.out.println(user.getUsername());
+                intent.putExtras(bundle);
+                break;
+            case R.id.user_logout:
+                intent = new Intent(getApplicationContext(), EnterActivity.class);
+                //下面2个flags ,可以将原有任务栈清空
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //清除token
+                SharedPreferences sp = getSharedPreferences("token", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("token",null);
+                editor.commit();
+                //附带账号标记
+                //intent.putExtra(EXTRA_LOGIN_OUT_KEY, true);
+                break;
         }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("user", user);
-        System.out.println(user.getUsername());
-        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

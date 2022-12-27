@@ -1,5 +1,6 @@
 package com.example.smartreader.Activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +49,7 @@ public class BookshelfFragment extends Fragment {
     private ListView listView;
     private List<Book>books=new ArrayList<>();
     private User user;
+    private Integer userid;
     private ArrayList<String> folders;
     private ArrayList<List<Book>> AllBook=new ArrayList<>();
     private Parent_Adapter adapter;
@@ -93,17 +95,24 @@ public class BookshelfFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
         listView=(ListView)view.findViewById(R.id.lv_list);
+        //onAttach(getContext());
 
         new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userid=((MainActivity)context).GetUserId();
     }
 
     class MyRunnableDisplay implements  Runnable{
         @Override
         public void run() {
             Intent intent=((MainActivity)getActivity()).getIntent();
-            user= (User) intent.getSerializableExtra("user");
             MainServiceImpl mainService=new MainServiceImpl();
+            user=mainService.GetUserById(userid);
             folders=mainService.GetFolderNames(user);
             for(int i=0;i<folders.size();i++){
                 books=mainService.GetFolderBooks(user,folders.get(i));

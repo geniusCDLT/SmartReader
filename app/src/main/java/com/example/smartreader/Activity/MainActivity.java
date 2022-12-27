@@ -18,8 +18,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.smartreader.Activity.adapter.MyFragmentPagerAdapter;
 import com.example.smartreader.Activity.fragment.BookMallFragment;
 import com.example.smartreader.Activity.fragment.BookshelfFragment;
+import com.example.smartreader.Activity.fragment.MineFragment;
 import com.example.smartreader.R;
+import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.Book;
+import com.example.smartreader.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private GridView mGridView;
     private List<Book> books;
 
+    //用户id
+    private Integer userid;
+
     //private BookListAdapter adapter=new BookListAdapter(this);
     private ListView listView;
 
@@ -58,19 +64,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void initFragment() {
         Fragment BookshelfFragment = new BookshelfFragment();
         Fragment BookMallFragment = new BookMallFragment();
+        Fragment MineFragment = new MineFragment();
         mFragmentList.add(BookshelfFragment);
         mFragmentList.add(BookMallFragment);
+        mFragmentList.add(MineFragment);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initFragment();
-        setContentView(R.layout.activity_main);
-        //new Thread(new MainActivity. MyRunnableDisplay()).start();
-        mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        initViews();
-        rb_bookshelf.setChecked(true);
         //去取登录的token，在第一运行应用时，token是空，
         SharedPreferences sp = getSharedPreferences("token", Context.MODE_PRIVATE);
         String token = sp.getString("token","");
@@ -80,12 +81,26 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             finish();
         }else {
             //实现token登录请求
+            userid=Integer.valueOf(token);
             System.out.println("二次登录验证O(∩_∩)O哈哈~");
+            //new Thread(new MainActivity.MyRunnable()).start();
         }
+        super.onCreate(savedInstanceState);
+        initFragment();
+        setContentView(R.layout.activity_main);
+        //new Thread(new MainActivity. MyRunnableDisplay()).start();
+        mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        initViews();
+        rb_bookshelf.setChecked(true);
         //listView=getFragmentManager().findFragmentById(R.id.rb_bookshelf).getView().findViewById(R.id.lv_list);
        // new Thread(new MainActivity.MyRunnableDisplay()).start();
 
 
+    }
+
+    public Integer GetUserId(){
+        System.out.print("GetUser啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦");
+        return this.userid;
     }
 
     private void initViews() {

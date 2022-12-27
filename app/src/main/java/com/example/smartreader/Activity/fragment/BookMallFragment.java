@@ -1,5 +1,6 @@
 package com.example.smartreader.Activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 
+import com.example.smartreader.Activity.MainActivity;
 import com.example.smartreader.Activity.RankingListActivity;
 import com.example.smartreader.Activity.ReadActivity;
 import com.example.smartreader.Activity.SearchActivity;
 import com.example.smartreader.R;
+import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.User;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +46,9 @@ public class BookMallFragment extends Fragment  implements View.OnClickListener 
     private Button btn5;
     private Button btn6;
     private Button btn7;
+    //用户
+    private User user;
+    private Integer userid;
     public BookMallFragment() {
         // Required empty public constructor
     }
@@ -76,6 +84,8 @@ public class BookMallFragment extends Fragment  implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //onAttach(getContext());
+        new Thread(new BookMallFragment.MyRunnable()).start();
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_book_mall, container, false);
         //找到控件
@@ -98,6 +108,21 @@ public class BookMallFragment extends Fragment  implements View.OnClickListener 
         btn7.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userid=((MainActivity)context).GetUserId();
+    }
+
+    //获取用户
+    class MyRunnable implements  Runnable{
+        @Override
+        public void run() {
+            MainServiceImpl mainService=new MainServiceImpl();
+            user=mainService.GetUserById(userid);
+        }
     }
 
     @Override
@@ -138,7 +163,7 @@ public class BookMallFragment extends Fragment  implements View.OnClickListener 
                 break;
         }
         //每个activity都应具有并向下一个activity传递user
-        User user=(User)(getActivity()).getIntent().getSerializableExtra("user");
+        //user=(User)(getActivity()).getIntent().getSerializableExtra("user");
         Bundle bundle = new Bundle();
         bundle.putSerializable("user", user);
         intent.putExtras(bundle);
