@@ -1,15 +1,20 @@
 package com.example.smartreader.Activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.smartreader.Activity.MineActivity;
+import com.example.smartreader.Activity.SearchActivity;
 import com.example.smartreader.R;
 import com.example.smartreader.entity.ResultEntity;
+import com.example.smartreader.entity.User;
 
 
 /**
@@ -27,6 +32,12 @@ public class MineFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //控件
+    private TextView NameTv;
+    private ImageView EditIv;
+    //用户
+    private User user;
 
     public MineFragment() {
         // Required empty public constructor
@@ -64,6 +75,27 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        //找到控件
+        NameTv=view.findViewById(R.id.username);
+        EditIv=view.findViewById(R.id.icon_edit);
+        //每个activity都应具有并向下一个activity传递user
+        user=(User)(getActivity()).getIntent().getSerializableExtra("user");
+        //设置用户名
+        NameTv.setText(user.getUsername());
+
+        //跳转编辑个人信息
+        EditIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), MineActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }
