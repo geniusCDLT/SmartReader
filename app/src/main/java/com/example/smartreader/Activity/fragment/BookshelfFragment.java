@@ -45,6 +45,7 @@ public class BookshelfFragment extends Fragment {
 
     private ListView listView;
     private List<Book>books=new ArrayList<>();
+    private User user;
 
 
 
@@ -116,7 +117,7 @@ public class BookshelfFragment extends Fragment {
         @Override
         public void run() {
             Intent intent=((MainActivity)getActivity()).getIntent();
-            User user= (User) intent.getSerializableExtra("user");
+            user= (User) intent.getSerializableExtra("user");
             MainServiceImpl mainService=new MainServiceImpl();
             ArrayList<Integer> folder;
             books=mainService.GetFolderBooks(user,"尚未分类");
@@ -141,6 +142,7 @@ public class BookshelfFragment extends Fragment {
                         intent=new Intent(getActivity(), ReadActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("books", (Serializable) books.get(i));
+                        bundle.putSerializable("user",user);
                         intent.putExtras(bundle);
                         startActivity(intent);
 

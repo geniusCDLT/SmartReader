@@ -21,4 +21,12 @@ public interface MainService {
     Integer GetXFolderBookNum(User user, String folderName);
     //获取书库中某类小说的数量
     Integer GetXBookNum(String type);
+    //收藏小说
+    boolean CollectBooks(User user,String folderName,Book book);
+    //判断用户是否收藏该小说
+    boolean ifCollectBooks(User user,Book book);
+    //取消该书收藏
+    boolean deleteCollectBooks(User user,Book book);
+    //修改分类
+    boolean updateCollectBooks(User user,Book book,String folderName);
 }

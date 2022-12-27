@@ -35,10 +35,10 @@ public class MainServiceImpl implements MainService {
         }
         try {
             PreparedStatement pst=con.prepareStatement(sql);
-            pst.setString(1,user.getUserid().toString());
+            pst.setInt(1,user.getUserid());
             ResultSet rs = pst.executeQuery();
-            if(rs.next()){
-                String folderName=rs.getString(2);
+            while (rs.next()){
+                String folderName=rs.getString(1);
                 FolderNames.add(folderName);
             }
         } catch (SQLException throwables) {
@@ -48,10 +48,37 @@ public class MainServiceImpl implements MainService {
     }
 
     /**
+     * 将小说加入对应收藏夹中
+     * @param user 用户信息
+     * @param folderName 收藏夹名
+     * @param book 小说信息
+     * @return 返回是否成功
+     */
+    @Override
+    public boolean CollectBooks(User user,String folderName,Book book){
+        String sql="insert into collect(userid,novelId,folderName) values (?,?,?)";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setInt(1,user.getUserid());
+            pst.setInt(2,book.getId());
+            pst.setString(3,folderName);
+            int value = pst.executeUpdate();
+            if(value>0){
+                System.out.println("加入成功");
+                return true;
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * 获取用户某书架分类下的小说列表
      * @param user 用户
      * @param folderName 收藏夹（即书架分类）名称
-     * @return
+     * @return 返回小说列表
      */
     @Override
     public ArrayList<Book> GetFolderBooks(User user, String folderName) {
@@ -81,6 +108,28 @@ public class MainServiceImpl implements MainService {
     }
 
     /**
+     * 判断用户是否收藏了该小说
+     * @param user 用户信息
+     * @param book 小说信息
+     * @return 返回boolean
+     */
+    public boolean ifCollectBooks(User user,Book book){
+        String sql="select * from collect where userid=? and novelId=?";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setInt(1,user.getUserid());
+            pst.setInt(2,book.getId());
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * 创建收藏夹（不能重名）
      * @param user 用户
      * @param folderName 创建的收藏夹名称
@@ -91,7 +140,7 @@ public class MainServiceImpl implements MainService {
         String sql = "insert into folder(UserId, folderName) values (?,?)";
         try {
             PreparedStatement pst=con.prepareStatement(sql);
-            pst.setString(1,user.getUserid().toString());
+            pst.setInt(1,user.getUserid());
             pst.setString(2,folderName);
             int value = pst.executeUpdate();
             if(value>0){
@@ -102,6 +151,8 @@ public class MainServiceImpl implements MainService {
         }
         return false;
     }
+
+
 
     /**
      * 修改收藏夹名称（不能重名）
@@ -116,7 +167,7 @@ public class MainServiceImpl implements MainService {
         try {
             PreparedStatement pst=con.prepareStatement(sql);
             pst.setString(1,NewName);
-            pst.setString(2,user.getUserid().toString());
+            pst.setInt(2,user.getUserid());
             pst.setString(3,OldName);
             int value = pst.executeUpdate();
             if(value>0){
@@ -139,7 +190,7 @@ public class MainServiceImpl implements MainService {
         String sql = "delete from folder where UserId = ? and folderName = ?";
         try {
             PreparedStatement pst=con.prepareStatement(sql);
-            pst.setString(1,user.getUserid().toString());
+            pst.setInt(1,user.getUserid());
             pst.setString(2,folderName);
             int value = pst.executeUpdate();
             if(value>0){
@@ -148,7 +199,7 @@ public class MainServiceImpl implements MainService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     /**
@@ -195,4 +246,49 @@ public class MainServiceImpl implements MainService {
         return 0;
     }
 
+    /**
+     * 取消收藏
+     * @param user 用户
+     * @param book 小说信息
+     * @return 返回boolean
+     */
+    public boolean deleteCollectBooks(User user,Book book){
+        String sql="delete from collect where userid=? and novelId=?";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setInt(1,user.getUserid());
+            pst.setInt(2,book.getId());
+            int value = pst.executeUpdate();
+            if(value>0){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 修改分类
+     * @param user 用户
+     * @param book 小说信息
+     * @param folderName 新书架
+     * @return 返回修改结果是否成功
+     */
+    public boolean updateCollectBooks(User user,Book book,String folderName){
+        String sql = "update collect set folderName = ? where userid = ? and novelId = ?";
+        try {
+            PreparedStatement pst=con.prepareStatement(sql);
+            pst.setString(1,folderName);
+            pst.setInt(2,user.getUserid());
+            pst.setInt(3,book.getId());
+            int value = pst.executeUpdate();
+            if(value>0){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

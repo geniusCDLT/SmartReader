@@ -16,6 +16,7 @@ import com.example.smartreader.Activity.fragment.BookshelfFragment;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.RankingListServiceImpl;
 import com.example.smartreader.entity.Book;
+import com.example.smartreader.entity.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class RankingListActivity extends AppCompatActivity {
     private String category;
     //排行榜小说
     private ArrayList<Book> books;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,9 @@ public class RankingListActivity extends AppCompatActivity {
         //找到控件
         cgyTv=findViewById(R.id.tv_rl_category);
         rkLv=findViewById(R.id.lv_rklist);
+        Intent intent=this.getIntent();
+
+        user= (User) intent.getSerializableExtra("user");
 
         //获取排行榜类别
         category=getIntent().getStringExtra("RKcategory");
@@ -70,6 +75,7 @@ public class RankingListActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), BookDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("book", (Serializable) books.get(i));
+                        bundle.putSerializable("user",user);
                         intent.putExtras(bundle);
                         startActivity(intent);
 

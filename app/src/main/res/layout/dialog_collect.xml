@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <TextView
+       android:id="@+id/tv_dialog"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_centerVertical="true"
+       android:drawableLeft="@drawable/selector_category_unload"
+       android:drawablePadding="10dp"
+       android:padding="15dp"
+       android:text="1.第一章 八十大寿"
+       android:textColor="@drawable/selector_chapter"
+       android:textSize="16sp" />
+
+</LinearLayout>

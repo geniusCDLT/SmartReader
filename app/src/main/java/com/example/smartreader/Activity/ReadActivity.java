@@ -23,6 +23,7 @@ import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.CatalogServiceImpl;
 import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.Chapter;
+import com.example.smartreader.entity.User;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 
@@ -58,6 +59,8 @@ public class ReadActivity extends AppCompatActivity {
     private AppBarLayout  bar;
     private LinearLayout lr_bottom;
 
+    private User user;
+
 
 
 
@@ -70,6 +73,7 @@ public class ReadActivity extends AppCompatActivity {
         seekBar.setMax(100);
         Intent intent=this.getIntent();
         book= (Book) intent.getSerializableExtra("books");
+        user= (User) intent.getSerializableExtra("user");
         System.out.println(book.getTitle());
         new Thread(new MyRunnableChapter()).start();
 
@@ -191,6 +195,7 @@ public class ReadActivity extends AppCompatActivity {
         intent=new Intent(this,BookDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("book", book);
+        bundle.putSerializable("user",user);
        // bundle.putSerializable("chapterList", (Serializable) chapterList);
         intent.putExtras(bundle);
         Toast.makeText(this, "进入简介页成功！", Toast.LENGTH_SHORT).show();
