@@ -6,21 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Activity.fragment.BookshelfFragment">
 
-<!--    <GridView-->
-<!--        android:id="@+id/grid_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:columnWidth="200dp"-->
-<!--        android:gravity="center"-->
-<!--        android:horizontalSpacing="30dp"-->
-<!--        android:numColumns="2"-->
-<!--        android:stretchMode="columnWidth"-->
-<!--        android:verticalSpacing="30dp" />-->
-    <ListView
+    <com.example.smartreader.Utils.MyListView
         android:id="@+id/lv_list"
         android:divider="@color/nb.widget.button.selected"
         android:dividerHeight="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+    </com.example.smartreader.Utils.MyListView>
 </LinearLayout>

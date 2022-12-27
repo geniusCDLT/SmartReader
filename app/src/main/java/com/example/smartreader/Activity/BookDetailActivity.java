@@ -289,6 +289,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 new1=mainService.CreateNewFolder(user,folder);
                 folderName.add(folder);
             }
+
             int msg=0;
 
            // DeleteContentShowHandle.sendEmptyMessage(msg);

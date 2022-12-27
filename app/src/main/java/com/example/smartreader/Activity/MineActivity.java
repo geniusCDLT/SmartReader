@@ -42,6 +42,7 @@ public class MineActivity extends AppCompatActivity implements View.OnClickListe
         }
         Bundle bundle = new Bundle();
         bundle.putSerializable("user", user);
+        System.out.println(user.getUsername());
         intent.putExtras(bundle);
         startActivity(intent);
     }
