@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.example.smartreader.Activity.MainActivity;
 import com.example.smartreader.Activity.ReadActivity;
 import com.example.smartreader.Activity.adapter.BookListAdapter;
+import com.example.smartreader.Activity.adapter.Child_Adapter;
+import com.example.smartreader.Activity.adapter.Parent_Adapter;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.MainServiceImpl;
 import com.example.smartreader.entity.Book;
@@ -46,10 +48,11 @@ public class BookshelfFragment extends Fragment {
     private ListView listView;
     private List<Book>books=new ArrayList<>();
     private User user;
+    private ArrayList<String> folders;
+    private ArrayList<List<Book>> AllBook=new ArrayList<>();
+    private Parent_Adapter adapter;
+    public Child_Adapter mAdapter;
 
-
-
-    private BookListAdapter adapter;
     public BookshelfFragment() {
         // Required empty public constructor
     }
@@ -91,24 +94,6 @@ public class BookshelfFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
         listView=(ListView)view.findViewById(R.id.lv_list);
 
-//        Intent intent=((MainActivity)getActivity()).getIntent();
-//        User user= (User) intent.getSerializableExtra("user");
-//        MainServiceImpl mainService=new MainServiceImpl();
-//        ArrayList<Integer> folder;
-//        books=mainService.GetFolderBooks(user,"尚未分类");
-//        adapter.setBs(books);
-//        if(books!=null){
-//            System.out.println(books.size());
-//        }
-//
-//        listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(((MainActivity)getActivity()).getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);
-//            }
-//        });
-
         new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
         return view;
     }
@@ -119,8 +104,15 @@ public class BookshelfFragment extends Fragment {
             Intent intent=((MainActivity)getActivity()).getIntent();
             user= (User) intent.getSerializableExtra("user");
             MainServiceImpl mainService=new MainServiceImpl();
+            folders=mainService.GetFolderNames(user);
+            for(int i=0;i<folders.size();i++){
+                books=mainService.GetFolderBooks(user,folders.get(i));
+                if(books!=null){
+                    AllBook.add(books);
+                }
+            }
             ArrayList<Integer> folder;
-            books=mainService.GetFolderBooks(user,"尚未分类");
+
             int msg=0;
             if(books!=null){
                 msg=1;
@@ -132,10 +124,14 @@ public class BookshelfFragment extends Fragment {
     private Handler Display=new Handler(){
         public  void handleMessage(android.os.Message msg){
             if(msg.what==1){
-                listView.setAdapter(new BookListAdapter(getActivity(),books));
+                //listView.setAdapter(new BookListAdapter(getActivity(),books));
+
+
+                listView.setAdapter(new Parent_Adapter(getActivity(),folders,AllBook));
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                         Toast.makeText(((MainActivity)getActivity()).getApplicationContext(), books.get(i).getTitle(),Toast.LENGTH_LONG);
                         Intent intent=null;
                         Toast.makeText(getActivity(), "进入详情页成功！", Toast.LENGTH_SHORT).show();

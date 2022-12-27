@@ -11,7 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
 
+import com.example.smartreader.Activity.adapter.Child_Adapter;
+import com.example.smartreader.entity.Book;
+
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -372,6 +376,8 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
             return viewRect.contains((int) e.getRawX(), (int) e.getRawY());
         }
     };
+
+
 
 }
 

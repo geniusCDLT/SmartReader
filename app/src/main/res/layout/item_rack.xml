@@ -8,6 +8,7 @@
     <ImageView
             android:id="@+id/main_iv_rack_book_cover"
             android:layout_width="match_parent"
+            android:src="@drawable/ic_book_loading"
             android:layout_height="135dp"/>
     <TextView
             android:id="@+id/main_tv_rack_book_name"
