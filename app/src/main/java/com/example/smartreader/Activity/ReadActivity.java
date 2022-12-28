@@ -2,11 +2,18 @@ package com.example.smartreader.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.smartreader.Activity.adapter.ReadCatalogAdapter;
+import com.example.smartreader.Activity.ui.SliderFont;
 import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.CatalogServiceImpl;
 import com.example.smartreader.entity.Book;
@@ -60,6 +68,28 @@ public class ReadActivity extends AppCompatActivity {
     private LinearLayout lr_bottom;
 
     private User user;
+    private TextView setting;
+    private RelativeLayout mPopupLayout;
+    private int settingNum=0;
+
+    private SliderFont sliderFont;
+    private boolean mChangeFont = false;
+    private float mLastX;
+    private int mFontIndex;
+    private int mScreenWidth;
+    private RelativeLayout mFontP;
+
+    private Button btn_bold;
+    private int bold=0;
+
+    private Button btn_italic;
+    private int italic;
+
+    private Button btn_color_change;
+    private int setColor=0;
+
+    private Button btn_line;
+    private int line=0;
 
 
 
@@ -87,6 +117,71 @@ public class ReadActivity extends AppCompatActivity {
       //  mRlLeft.setOnClickListener(this::SlideMenuClose);
         TvBrief.setOnClickListener(this::ToBrief);
         T_chapter.setOnClickListener(this::DisplayClick);
+        startAnim();
+        WindowManager manager = getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(metrics);
+        mScreenWidth = metrics.widthPixels;
+        //其实最好的是得到mFontP的宽度，但是现在mFontP还没有绘制
+        sliderFont.setParentWidth(mScreenWidth);
+        sliderFont.setOnTouchListener(this::onTouch);
+
+        btn_bold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bold==0){
+                    T_chapter.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    bold=1;
+                }
+                else{
+                    T_chapter.setTypeface(null, Typeface.NORMAL);
+                    bold=0;
+                }
+            }
+        });
+
+
+        btn_italic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(italic==0){
+                    T_chapter.setTypeface(null, Typeface.ITALIC);
+
+                    italic=1;
+                }
+                else{
+                    T_chapter.setTypeface(null, Typeface.NORMAL);
+                    italic=0;
+                }
+            }
+        });
+        btn_line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(line==0){
+                   // T_chapter.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+                    T_chapter.setPaintFlags(T_chapter.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                    line=1;
+                }
+                else{
+                    T_chapter.setPaintFlags(T_chapter.getPaintFlags() & (~Paint.UNDERLINE_TEXT_FLAG));
+                    line=0;
+                }
+            }
+        });
+        btn_color_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(setColor==0){
+                    T_chapter.setTextColor(Color.YELLOW);
+                    setColor=1;
+                }
+                else{
+                    T_chapter.setTextColor(Color.GRAY);
+                    setColor=0;
+                }
+            }
+        });
 
     }
 
@@ -106,8 +201,54 @@ public class ReadActivity extends AppCompatActivity {
         lr_read=findViewById(R.id.content);
         bar=findViewById(R.id.read_abl_top_menu);
         lr_bottom=findViewById(R.id.read_ll_bottom_menu);
+        setting=findViewById(R.id.read_tv_setting);
+        mPopupLayout=findViewById(R.id.start_ctrl);
+        sliderFont=findViewById(R.id.slider);
+        mFontP=findViewById(R.id.linear_slider);
+        btn_bold=findViewById(R.id.btn_bold);
+        btn_italic=findViewById(R.id.btn_italic);
+        btn_color_change=findViewById(R.id.btn_color_change);
+        btn_line=findViewById(R.id.btn_line);
 
+    }
 
+    public boolean onTouch(View v, MotionEvent event) {
+
+        float x = event.getX();
+        float y = event.getY();
+
+        if(event.getAction() == MotionEvent.ACTION_MOVE){
+
+            //判断Touch的位置是否在SliderFont上
+            if(y>mFontP.getY() &&y<mFontP.getY()+mFontP.getHeight()+30 || mChangeFont){
+                mChangeFont = true;
+                float specX = x-mLastX;
+                sliderFont.move(specX);
+                mLastX = x;
+                sliderFont.invalidate();
+            }
+
+        }else if(event.getAction() == MotionEvent.ACTION_DOWN){
+
+            if(y>mFontP.getY() &&y<mFontP.getY()+mFontP.getHeight()){
+                mChangeFont = true;
+                sliderFont.setCenter(x);
+                mLastX = x;
+                sliderFont.invalidate();
+            }
+
+        }else if(event.getAction() == MotionEvent.ACTION_UP){
+            //如果上面的事件确实滑动了SliderFont，就进行thumb调整
+            if(mChangeFont){
+
+                mFontIndex =  sliderFont.adJustCenter(x);
+                float fontSize = sliderFont.getFontSize(mFontIndex);
+                T_chapter.setTextSize(fontSize);
+                mLastX = x;
+            }
+            mChangeFont = false;
+        }
+        return true;
     }
 
     /**
@@ -216,6 +357,37 @@ public class ReadActivity extends AppCompatActivity {
             show=true;
         }
 
+    }
+    private void startAnim() {
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("设置");
+
+                //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
+                final TranslateAnimation ctrlAnimation = new TranslateAnimation(
+                        TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
+                        TranslateAnimation.RELATIVE_TO_SELF, 1, TranslateAnimation.RELATIVE_TO_SELF, 0);
+                ctrlAnimation.setDuration(400l);     //设置动画的过渡时间
+                mPopupLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                       if(settingNum==0){
+                           mPopupLayout.setVisibility(View.VISIBLE);
+                           mPopupLayout.startAnimation(ctrlAnimation);
+                           settingNum=1;
+                       }
+                       else
+                       {
+                           mPopupLayout.setVisibility(View.GONE);
+                          // mPopupLayout.startAnimation(ctrlAnimation);
+                           settingNum=0;
+                       }
+                    }
+                }, 500);
+            }
+        });
     }
 
      class MyRunnableChapter implements  Runnable{

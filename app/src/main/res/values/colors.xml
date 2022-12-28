@@ -17,6 +17,7 @@
     <color name="nb.theme.background">@color/white</color>
     <color name="background_blue">#1890ff</color>
     <color name="navigate">#666</color>
+    <color name="font_line">#212121</color>
 
     <!--common-->
     <color name="transparent">#00000000</color>
