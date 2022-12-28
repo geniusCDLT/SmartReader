@@ -26,7 +26,7 @@ public class Parent_Adapter extends BaseAdapter {
     private ArrayList<String> folderName;
     private ArrayList<List<Book>> books;
     private Child_Adapter adapter;
-
+    private onItemDeleteListener mOnItemDeleteListener;
     public Parent_Adapter(Context context,ArrayList<String>folderName,ArrayList<List<Book>>books){
         inflater=LayoutInflater.from(context);
         this.books=books;
@@ -54,9 +54,29 @@ public class Parent_Adapter extends BaseAdapter {
         TextView title=view.findViewById(R.id.main_tv_rack_name);
         title.setText(folderName.get(i));
         HorizontalListView mListView=view.findViewById(R.id.main_lv_rack);
+        TextView edit=view.findViewById(R.id.main_tv_rack_edit);
+
 
         adapter=new Child_Adapter(inflater.getContext(), (ArrayList<Book>) books.get(i));
         mListView.setAdapter(adapter);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnItemDeleteListener.onDeleteClick(i);
+            }
+        });
         return view;
     }
+
+    /**
+     * 编辑按钮的监听接口
+     */
+    public interface onItemDeleteListener {
+        void onDeleteClick(int i);
+    }
+
+    public void setOnItemDeleteClickListener(onItemDeleteListener mOnItemDeleteListener) {
+        this.mOnItemDeleteListener = mOnItemDeleteListener;
+    }
+
 }

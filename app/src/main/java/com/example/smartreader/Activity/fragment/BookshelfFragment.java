@@ -1,6 +1,7 @@
 package com.example.smartreader.Activity.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.smartreader.Activity.BookDetailActivity;
 import com.example.smartreader.Activity.FloderMainActivity;
 import com.example.smartreader.Activity.MainActivity;
 import com.example.smartreader.Activity.adapter.Child_Adapter;
@@ -55,6 +59,9 @@ public class BookshelfFragment extends Fragment {
     private Parent_Adapter adapter;
     public Child_Adapter mAdapter;
     private SwipeRefreshLayout swi;
+
+    private String folderName;
+    private String newFolderName;
 
     public BookshelfFragment() {
         // Required empty public constructor
@@ -189,8 +196,9 @@ public class BookshelfFragment extends Fragment {
     private Handler Display=new Handler(){
         public  void handleMessage(android.os.Message msg){
             if(msg.what==1){
+                Parent_Adapter adapter1=new Parent_Adapter(getActivity(),folders,AllBook);
                 //listView.setAdapter(new BookListAdapter(getActivity(),books));
-                listView.setAdapter(new Parent_Adapter(getActivity(),folders,AllBook));
+                listView.setAdapter(adapter1);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -207,7 +215,62 @@ public class BookshelfFragment extends Fragment {
 
                     }
                 });
+
+
+                adapter1.setOnItemDeleteClickListener(new Parent_Adapter.onItemDeleteListener() {
+                    @Override
+                    public void onDeleteClick(int i) {
+                        final EditText editText = new EditText(getActivity());
+                        folderName=folders.get(i);
+                        AlertDialog dialog = null;
+                        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity())
+                                .setTitle("收藏类别管理")
+                                .setView(editText)
+                                .setPositiveButton("修改类别", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        newFolderName=editText.getText().toString();
+                                        new Thread(new BookshelfFragment.MyRunnableUpdateFolder()).start();
+                                        Toast.makeText(getActivity(),"修改类别成功！",Toast.LENGTH_LONG).show();
+                                        dialogInterface.dismiss();
+                                    }
+                                }).setNegativeButton("删除类别", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        new Thread(new BookshelfFragment.MyRunnableDeleteFolder()).start();
+                                        Toast.makeText(getActivity(),"删除类别成功！",Toast.LENGTH_LONG).show();
+                                        dialogInterface.dismiss();
+
+
+                                    }
+                                });
+                        dialog=builder.create();
+                        dialog.show();
+                    }
+                });
+
             }
         }
     };
+
+    class MyRunnableDeleteFolder implements  Runnable{
+        @Override
+        public void run() {
+
+            MainServiceImpl mainService=new MainServiceImpl();
+            user=mainService.GetUserById(userid);
+            mainService.DeleteFolder(user,folderName);
+        }
+    }
+    class MyRunnableUpdateFolder implements  Runnable{
+        @Override
+        public void run() {
+
+            MainServiceImpl mainService=new MainServiceImpl();
+            user=mainService.GetUserById(userid);
+            mainService.RenameFolder(user,folderName,newFolderName);
+        }
+    }
+
+
   }
