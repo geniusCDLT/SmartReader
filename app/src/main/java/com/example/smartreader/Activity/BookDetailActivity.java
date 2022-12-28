@@ -192,15 +192,12 @@ public class BookDetailActivity extends AppCompatActivity {
                     .setSingleChoiceItems(adapter,0,new DialogInterface.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            if(!ifCollect){
+
                                 clickFolderName=folderName.get(i);
                                 new Thread(new BookDetailActivity.MyRunnableCollect()).start();
                                 Toast.makeText(getApplicationContext(),"加入书架成功！",Toast.LENGTH_LONG).show();
                                 dialogInterface.dismiss();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(),"已加入！",Toast.LENGTH_LONG).show();
-                            }
+
                         }
                     }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override

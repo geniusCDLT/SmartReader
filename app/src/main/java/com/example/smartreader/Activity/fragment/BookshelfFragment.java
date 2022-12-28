@@ -12,11 +12,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.smartreader.Activity.FloderMainActivity;
 import com.example.smartreader.Activity.MainActivity;
-import com.example.smartreader.Activity.ReadActivity;
-import com.example.smartreader.Activity.adapter.BookListAdapter;
 import com.example.smartreader.Activity.adapter.Child_Adapter;
 import com.example.smartreader.Activity.adapter.Parent_Adapter;
 import com.example.smartreader.R;
@@ -55,6 +54,7 @@ public class BookshelfFragment extends Fragment {
     private ArrayList<List<Book>> AllBook=new ArrayList<>();
     private Parent_Adapter adapter;
     public Child_Adapter mAdapter;
+    private SwipeRefreshLayout swi;
 
     public BookshelfFragment() {
         // Required empty public constructor
@@ -96,11 +96,36 @@ public class BookshelfFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bookshelf, container, false);
         listView=(ListView)view.findViewById(R.id.lv_list);
+        swi=(SwipeRefreshLayout) view.findViewById(R.id.swi_lv);
         //onAttach(getContext());
         new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
+        swi.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //判断是否在刷新
+                Toast.makeText(getActivity(),swi.isRefreshing()?"正在刷新":"刷新完成",Toast.LENGTH_SHORT).show();
+               // new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
+                swi.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //关闭刷新
+                        new Thread(new BookshelfFragment.MyRunnableRefreshDisplay()).start();
+                        swi.setRefreshing(false);
+                    }
+                },3000);
+            }
+        });
+        //设置加载动画背景颜色
+        swi.setProgressBackgroundColorSchemeColor(getResources().getColor(android.R.color.background_light));
+//设置进度动画的颜色
+        swi.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         return view;
     }
 
+    public SwipeRefreshLayout.OnRefreshListener onRefresh() {
+        new Thread(new BookshelfFragment.MyRunnableDisplay()).start();
+        return null;
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -128,6 +153,38 @@ public class BookshelfFragment extends Fragment {
             Display.sendEmptyMessage(msg);
         }
     }
+    class MyRunnableRefreshDisplay implements  Runnable{
+        @Override
+        public void run() {
+
+            MainServiceImpl mainService=new MainServiceImpl();
+            user=mainService.GetUserById(userid);
+            folders=mainService.GetFolderNames(user);
+            AllBook=new ArrayList<>();
+            for(int i=0;i<folders.size();i++){
+                books=mainService.GetFolderBooks(user,folders.get(i));
+                if(books!=null){
+                    AllBook.add(books);
+
+
+                }
+            }
+            ArrayList<Integer> folder;
+            int msg=0;
+            if(books!=null){
+                msg=1;
+            }
+            refreshDisplay.sendEmptyMessage(msg);
+        }
+    }
+
+    private Handler refreshDisplay=new Handler(){
+        public void handleMessage(android.os.Message msg) {
+          if(msg.what==1){
+              listView.setAdapter(new Parent_Adapter(getActivity(),folders,AllBook));
+          }
+        }
+    };
 
     private Handler Display=new Handler(){
         public  void handleMessage(android.os.Message msg){

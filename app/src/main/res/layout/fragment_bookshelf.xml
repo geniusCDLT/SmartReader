@@ -4,13 +4,36 @@
     android:id="@+id/fragmnet_bookself"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.fragment.BookshelfFragment">
+    tools:context=".Activity.fragment.BookshelfFragment"
+    android:orientation="horizontal">
 
-    <com.example.smartreader.Utils.MyListView
-        android:id="@+id/lv_list"
-        android:divider="@color/nb.widget.button.selected"
-        android:dividerHeight="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.example.smartreader.Utils.MyListView>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+           android:id="@+id/swi_lv"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+
+           >
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <com.example.smartreader.Utils.MyListView
+                   android:id="@+id/lv_list"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_gravity="bottom"
+                   android:divider="@color/nb.widget.button.selected"
+                   android:dividerHeight="5dp"></com.example.smartreader.Utils.MyListView>
+
+           </LinearLayout>
+
+       </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+   </LinearLayout>
+
+
 </LinearLayout>
