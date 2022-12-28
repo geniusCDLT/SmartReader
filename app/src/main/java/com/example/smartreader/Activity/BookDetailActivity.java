@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -168,8 +169,14 @@ public class BookDetailActivity extends AppCompatActivity {
                                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            new Thread(new BookDetailActivity.MyRunnableNewFolder()).start();
-                                                            Toast.makeText(getApplicationContext(),"新建分类成功！",Toast.LENGTH_LONG).show();
+                                                            if(!TextUtils.isEmpty(editText.getText())){
+                                                                new Thread(new BookDetailActivity.MyRunnableNewFolder()).start();
+                                                                Toast.makeText(getApplicationContext(),"新建分类成功！",Toast.LENGTH_LONG).show();
+                                                            }
+                                                            else{
+                                                                Toast.makeText(getApplicationContext(),"类别名不能为空！",Toast.LENGTH_LONG).show();
+                                                            }
+
                                                         }
                                                     });
                                             dialog1=builder.create();
@@ -223,8 +230,14 @@ public class BookDetailActivity extends AppCompatActivity {
                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            new Thread(new BookDetailActivity.MyRunnableNewFolder()).start();
-                                            Toast.makeText(getApplicationContext(),"新建分类成功！",Toast.LENGTH_LONG).show();
+                                            if(!TextUtils.isEmpty(editText.getText())){
+                                                new Thread(new BookDetailActivity.MyRunnableNewFolder()).start();
+                                                Toast.makeText(getApplicationContext(),"新建分类成功！",Toast.LENGTH_LONG).show();
+                                            }
+                                            else{
+                                                Toast.makeText(getApplicationContext(),"类别名不能为空！",Toast.LENGTH_LONG).show();
+                                            }
+
                                         }
                                     });
                             dialog1=builder.create();

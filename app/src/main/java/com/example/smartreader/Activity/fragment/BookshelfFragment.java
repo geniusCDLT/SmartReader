@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class BookshelfFragment extends Fragment {
 
     private String folderName;
     private String newFolderName;
+    private boolean update=false;
+    private boolean delete=false;
 
     public BookshelfFragment() {
         // Required empty public constructor
@@ -227,16 +230,28 @@ public class BookshelfFragment extends Fragment {
                                 .setPositiveButton("修改类别", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        newFolderName=editText.getText().toString();
-                                        new Thread(new BookshelfFragment.MyRunnableUpdateFolder()).start();
-                                        Toast.makeText(getActivity(),"修改类别成功！",Toast.LENGTH_LONG).show();
+
+                                        if(!TextUtils.isEmpty(editText.getText())){
+                                            newFolderName=editText.getText().toString();
+                                            new Thread(new BookshelfFragment.MyRunnableUpdateFolder()).start();
+                                            if(update){
+                                                Toast.makeText(getActivity(),"修改类别成功！",Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+                                        else{
+                                            Toast.makeText(getActivity(),"类别名不能为空！",Toast.LENGTH_LONG).show();
+                                        }
+
                                         dialogInterface.dismiss();
                                     }
                                 }).setNegativeButton("删除类别", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         new Thread(new BookshelfFragment.MyRunnableDeleteFolder()).start();
-                                        Toast.makeText(getActivity(),"删除类别成功！",Toast.LENGTH_LONG).show();
+                                        if(delete){
+                                            Toast.makeText(getActivity(),"删除类别成功！",Toast.LENGTH_LONG).show();
+                                        }
                                         dialogInterface.dismiss();
                                     }
                                 });
@@ -255,7 +270,7 @@ public class BookshelfFragment extends Fragment {
 
             MainServiceImpl mainService=new MainServiceImpl();
             user=mainService.GetUserById(userid);
-            mainService.DeleteFolder(user,folderName);
+            delete=mainService.DeleteFolder(user,folderName);
         }
     }
     class MyRunnableUpdateFolder implements  Runnable{
@@ -264,7 +279,10 @@ public class BookshelfFragment extends Fragment {
 
             MainServiceImpl mainService=new MainServiceImpl();
             user=mainService.GetUserById(userid);
-            mainService.RenameFolder(user,folderName,newFolderName);
+
+                update=mainService.RenameFolder(user,folderName,newFolderName);
+
+
         }
     }
 
