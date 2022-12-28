@@ -91,6 +91,8 @@ public class ReadActivity extends AppCompatActivity {
     private Button btn_line;
     private int line=0;
 
+    private LinearLayout linearLayout;
+
 
 
 
@@ -209,6 +211,7 @@ public class ReadActivity extends AppCompatActivity {
         btn_italic=findViewById(R.id.btn_italic);
         btn_color_change=findViewById(R.id.btn_color_change);
         btn_line=findViewById(R.id.btn_line);
+        linearLayout=findViewById(R.id.read_dl_slide);
 
     }
 
@@ -220,7 +223,7 @@ public class ReadActivity extends AppCompatActivity {
         if(event.getAction() == MotionEvent.ACTION_MOVE){
 
             //判断Touch的位置是否在SliderFont上
-            if(y>mFontP.getY() &&y<mFontP.getY()+mFontP.getHeight()+30 || mChangeFont){
+            if(y>linearLayout.getY() &&y<linearLayout.getY()+linearLayout.getHeight()+30 || mChangeFont){
                 mChangeFont = true;
                 float specX = x-mLastX;
                 sliderFont.move(specX);
@@ -230,7 +233,7 @@ public class ReadActivity extends AppCompatActivity {
 
         }else if(event.getAction() == MotionEvent.ACTION_DOWN){
 
-            if(y>mFontP.getY() &&y<mFontP.getY()+mFontP.getHeight()){
+            if(y>linearLayout.getY() &&y<linearLayout.getY()+linearLayout.getHeight()){
                 mChangeFont = true;
                 sliderFont.setCenter(x);
                 mLastX = x;
