@@ -30,6 +30,7 @@ public class RankingListActivity extends AppCompatActivity {
     //排行榜小说
     private ArrayList<Book> books;
     private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +77,7 @@ public class RankingListActivity extends AppCompatActivity {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("book", (Serializable) books.get(i));
                         bundle.putSerializable("user",user);
+
                         intent.putExtras(bundle);
                         startActivity(intent);
 

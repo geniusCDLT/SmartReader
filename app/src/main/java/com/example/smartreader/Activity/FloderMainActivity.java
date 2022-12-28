@@ -22,6 +22,7 @@ public class FloderMainActivity extends AppCompatActivity {
     private ListView folder;
     private List<Book> bookList;
     private User user;
+    private int position=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,7 @@ public class FloderMainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("books", (Serializable) bookList.get(pI));
         bundle.putSerializable("user",user);
+        intent.putExtra("position",position);
         intent.putExtras(bundle);
         startActivity(intent);
     }

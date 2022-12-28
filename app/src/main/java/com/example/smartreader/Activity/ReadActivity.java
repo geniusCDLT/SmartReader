@@ -73,8 +73,10 @@ public class ReadActivity extends AppCompatActivity {
         seekBar.setMax(100);
         Intent intent=this.getIntent();
         book= (Book) intent.getSerializableExtra("books");
-        user= (User) intent.getSerializableExtra("user");
         System.out.println(book.getTitle());
+        user= (User) intent.getSerializableExtra("user");
+        chapterPosition= (int) intent.getSerializableExtra("position");
+
         new Thread(new MyRunnableChapter()).start();
 
         PreChapter.setOnClickListener(this::PreChapter);
@@ -227,14 +229,13 @@ public class ReadActivity extends AppCompatActivity {
                     msg=1;
                 }
                 ContentShowHandle.sendEmptyMessage(msg);
-
         }
     }
 
     private  Handler ContentShowHandle=new Handler(){
         public  void handleMessage(android.os.Message msg){
             if(msg.what==1){
-               T_chapter.setText(chapterList.get(0).getContent());
+               T_chapter.setText(chapterList.get(chapterPosition).getContent());
                System.out.println(chapterList.size());
             }
 

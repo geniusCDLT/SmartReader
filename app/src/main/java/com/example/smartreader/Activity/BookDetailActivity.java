@@ -45,6 +45,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private String clickFolderName;
     private boolean ifCollectSuccess;
     private  EditText editText ;
+    private int position=0;
 
     //评论
     private ArrayList<String> comments = new ArrayList<String>();
@@ -106,8 +107,9 @@ public class BookDetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("books", book);
         bundle.putSerializable("user", user);
+        intent.putExtra("position",position);
         intent.putExtras(bundle);
-        Toast.makeText(this, "进入简介页成功！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "进入阅读页成功！", Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
@@ -117,8 +119,10 @@ public class BookDetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
 
         bundle.putSerializable("books", book);
+        bundle.putSerializable("user", user);
+
         intent.putExtras(bundle);
-        Toast.makeText(this, "进入简介页成功！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "进入目录页成功！", Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

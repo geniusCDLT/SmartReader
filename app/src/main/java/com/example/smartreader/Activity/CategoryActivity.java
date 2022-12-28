@@ -17,6 +17,7 @@ import com.example.smartreader.R;
 import com.example.smartreader.Service.impl.CatalogServiceImpl;
 import com.example.smartreader.entity.Book;
 import com.example.smartreader.entity.Chapter;
+import com.example.smartreader.entity.User;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class CategoryActivity extends AppCompatActivity {
     private ListView lv_category;
     private Book book;
     private List<Chapter> chapterList;
+    private int position=0;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,8 @@ public class CategoryActivity extends AppCompatActivity {
         initView();
         Intent intent=this.getIntent();
         book= (Book) intent.getSerializableExtra("books");
-
-
+        System.out.println(book.getTitle());
+        user= (User) intent.getSerializableExtra("user");
         tv_bookTitle.setText(book.getTitle());
         new Thread(new CategoryActivity.MyRunnableChapter()).start();
 
@@ -48,7 +51,17 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void onItemClick(AdapterView<?> pAdapterView, View pView, int pI, long pL) {
-
+            position=pI;
+            Intent intent=null;
+        intent=new Intent(this,ReadActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("books", book);
+        bundle.putSerializable("user",user);
+        // bundle.putSerializable("chapterList", (Serializable) chapterList);
+        bundle.putSerializable("position",position);
+        intent.putExtras(bundle);
+        Toast.makeText(this, "进入阅读页成功！", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
     }
 
 
